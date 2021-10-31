@@ -52,6 +52,21 @@ public class App {
         }
         return codigo_obtido ? id : "\n";
     }
+    public static void finalizarPedido(Pedido pedido){
+        new InterfacePedido(pedido).setVisible(true);
+    }
+    public static Pedido saida(Pedido pedido, String entrada){
+        Pedido p = pedido;
+        if(entrada == null || entrada == "" || entrada == "\n"){
+            System.out.println("Código inválido!");
+        }else{
+            String codigo = entrada.substring(0, 13);
+            if(p.getQuantidade() > 0){
+                p.saidaProduto(codigo);
+            }
+        }
+        return p;
+    }
     public static void main(String[] args){
         novoPedido();
     }

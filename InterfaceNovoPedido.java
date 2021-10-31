@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.*;
+
 import javax.swing.*;
 
 public class InterfaceNovoPedido extends JFrame{
@@ -6,7 +8,8 @@ public class InterfaceNovoPedido extends JFrame{
     private final JButton btn_obter = new JButton("Obter produtos");
     private final JButton btn_finalizar = new JButton("Finalizar Pedido");
     private final JTable tbl_produtos = new JTable();
-    InterfaceNovoPedido(){
+    private Pedido p;
+    InterfaceNovoPedido(Pedido pedido){
         super("Novo pedido");
         JPanel painel = new JPanel();
         JPanel topo = new JPanel();
@@ -22,5 +25,13 @@ public class InterfaceNovoPedido extends JFrame{
         topo.add(btn_finalizar);
         centro.add(tbl_produtos);
         setBounds(50, 50, 400, 550);
+        this.p = pedido;
+        btn_obter.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                p = App.inserirProdutos(p, txt_entrada.getText());
+                txt_entrada.setText("");
+            }
+        });
     }
 }

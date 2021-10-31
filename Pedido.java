@@ -19,4 +19,28 @@ public class Pedido {
         quantidade += 1;
         produtos[quantidade] = produto;
     }
+    public void saidaProduto(String codigo){
+        Produto[] produtos_atual = new Produto[100];
+        int n = 1;
+        int i = 1;
+        while(n < quantidade){
+            if(!codigo.equals(produtos[n].getCodigo())){
+                produtos_atual[i] = produtos[n];
+                i++;
+            }else{
+                codigo = "vazio";
+            }
+            n++;
+        }
+        System.out.println("Antes:\n");
+        for(int m = 0; m < quantidade; m++){
+            System.out.println("produto: " + produtos[m] + "\n");
+        }
+        produtos = produtos_atual;
+        quantidade--;
+        System.out.println("Depois:\n");
+        for(int m = 0; m < quantidade; m++){
+            System.out.println("produto: " + produtos[m] + "\n");
+        }
+    }
 }

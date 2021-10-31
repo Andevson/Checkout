@@ -33,5 +33,12 @@ public class InterfaceNovoPedido extends JFrame{
                 txt_entrada.setText("");
             }
         });
+        btn_finalizar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                App.finalizarPedido(p);
+                txt_entrada.setText("");
+            }
+        });
     }
 }

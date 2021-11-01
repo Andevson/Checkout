@@ -34,7 +34,7 @@ public class App {
             }
             if(id != ""){
                 pedido.acrescentarProduto(produto);
-                id = "\n";
+                id = "";
             }
         }while(id != "\n");
         leitura.close();
@@ -71,10 +71,12 @@ public class App {
                 }
             }
         }catch(Exception e){
-            novoProduto();
+            if(id.length() > 0 && !codigo_obtido){
+                novoProduto();
+            }
             return "";
         }
-        if(id.length() > 0){
+        if(id.length() > 0 && !codigo_obtido){
             novoProduto();
         }
         return codigo_obtido ? codigo : "\n";

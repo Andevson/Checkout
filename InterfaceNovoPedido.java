@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class InterfaceNovoPedido extends JFrame{
-    private final JTextArea txt_entrada = new JTextArea("Insira um produto.");
+    private final JTextArea txt_entrada = new JTextArea("");
     private final JButton btn_obter = new JButton("Obter produtos");
     private final JButton btn_finalizar = new JButton("Finalizar Pedido");
     private final JTable tbl_produtos = new JTable();
@@ -24,11 +24,14 @@ public class InterfaceNovoPedido extends JFrame{
         topo.add(btn_obter);
         topo.add(btn_finalizar);
         centro.add(tbl_produtos);
-        setBounds(50, 50, 400, 550);
+        setBounds(450, 50, 400, 550);
+        txt_entrada.setMinimumSize(new Dimension(100, 20));
+        txt_entrada.setPreferredSize(new Dimension(100, 20));
+        txt_entrada.setMaximumSize(new Dimension(100, 20));
         this.p = pedido;
         btn_obter.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e){
                 p = App.inserirProdutos(p, txt_entrada.getText());
                 txt_entrada.setText("");
             }
@@ -38,6 +41,7 @@ public class InterfaceNovoPedido extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 App.finalizarPedido(p);
                 txt_entrada.setText("");
+                dispose();
             }
         });
     }

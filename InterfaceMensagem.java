@@ -21,6 +21,7 @@ public class InterfaceMensagem extends JDialog{
         centro.add(txt_mensagem);
         sul.add(btn_ok);
         setBounds(500, 100, 250, 100);
+        setModal(true);
         setResizable(false);
         btn_ok.addActionListener(new ActionListener(){
             @Override

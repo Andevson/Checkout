@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class App {
@@ -15,7 +16,12 @@ public class App {
         Produto produto = null;
         Scanner leitura = new Scanner(entrada);
         do{
-            id = leitura.nextLine();
+            try{
+                id = leitura.nextLine();
+            }catch(NoSuchElementException e){
+                leitura.close();
+                return pedido;
+            }
             if(id == null || id == "" || id == "\n"){
                 id = "\n";
             }else{
@@ -65,12 +71,10 @@ public class App {
                 }
             }
         }catch(Exception e){
-            System.out.println("Teste");
             novoProduto();
             return "";
         }
         if(id.length() > 0){
-            System.out.println("Teste");
             novoProduto();
         }
         return codigo_obtido ? codigo : "\n";

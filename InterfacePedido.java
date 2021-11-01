@@ -44,8 +44,15 @@ public class InterfacePedido extends JFrame{
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String entrada = txt_entrada.getText();
+                topo.setBackground(new Color(222, 222, 222));
                 if(entrada.length() >= 14){
+                    int qty = p.getQuantidade();
                     p = App.saida(pedido, entrada);
+                    if(qty > p.getQuantidade()){
+                        topo.setBackground(new Color(0, 255, 0));
+                    }else{
+                        topo.setBackground(new Color(255, 0, 0));
+                    }
                     if(p.getQuantidade() <= 0){
                         new InterfaceMensagem("Checkout concluido!").setVisible(true);
                         dispose();

@@ -97,10 +97,14 @@ public class App {
         new InterfaceNovoProduto().setVisible(true);
     }
     public static void cadastrarProduto(String id, String codigo){
-        String novo_id = id.substring(14);
-        String novo_codigo = codigo.substring(0, 13);
-        if(novo_id.length() > 0 && novo_codigo.length() == 13){
-            gravarProduto(new Produto(novo_id, novo_codigo));
+        try{
+            String novo_id = id;
+            String novo_codigo = codigo.substring(0, 13);
+            if(novo_id.length() > 0 && novo_codigo.length() == 13){
+                gravarProduto(new Produto(novo_id, novo_codigo));
+            }
+        }catch(StringIndexOutOfBoundsException e){
+            new InterfaceMensagem("Os dados não são válidos!").setVisible(true);;
         }
     }
     public static void finalizarPedido(Pedido pedido){

@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class InterfaceApp extends JFrame{
     private final JButton btn_novo_pedido = new JButton("Novo pedido");
+    private final JButton btn_novo_produto = new JButton("Cadastrar produto");
     private JLabel lbl_background = new JLabel();
     Image backgroundImage;
     public void setBackground(){
@@ -32,12 +33,19 @@ public class InterfaceApp extends JFrame{
         painel.add(centro, BorderLayout.CENTER);
         painel.add(lbl_background);
         topo.add(btn_novo_pedido);
+        topo.add(btn_novo_produto);
         setBounds(50, 50, 400, 450);
         setResizable(false);
         btn_novo_pedido.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 App.novoPedido();
+            }
+        });
+        btn_novo_produto.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                App.novoProduto();
             }
         });
     }

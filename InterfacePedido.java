@@ -46,6 +46,10 @@ public class InterfacePedido extends JFrame{
                 String entrada = txt_entrada.getText();
                 if(entrada.length() >= 14){
                     p = App.saida(pedido, entrada);
+                    if(p.getQuantidade() <= 0){
+                        new InterfaceMensagem("Checkout concluido!").setVisible(true);
+                        dispose();
+                    }
                     atualizaTabela(p);
                     lbl_qty_restante.setText("Restante: " + p.getQuantidade());
                     SwingUtilities.invokeLater(new Runnable(){

@@ -106,7 +106,7 @@ public class App {
                 gravarProduto(new Produto(novo_id, novo_codigo));
             }
         }catch(StringIndexOutOfBoundsException e){
-            new InterfaceMensagem("Os dados não são válidos!").setVisible(true);;
+            new InterfaceMensagem("Os dados não são válidos!").setVisible(true);
         }
     }
     public static void finalizarPedido(Pedido pedido){

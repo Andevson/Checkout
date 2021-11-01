@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -13,31 +15,26 @@ public class App {
         Produto produto = null;
         Scanner leitura = new Scanner(entrada);
         do{
-            try{
-                id = leitura.nextLine();
-                System.out.print(id);
-                if(id == null || id == "" || id == "\n"){
-                    id = "\n";
+            id = leitura.nextLine();
+            if(id == null || id == "" || id == "\n"){
+                id = "\n";
+            }else{
+                String codigo = obterCodigoProduto(id);
+                if(codigo != "\n"){
+                    produto = new Produto(id, codigo);
                 }else{
-                    String codigo = obterCodigoProduto(id);
-                    if(codigo != "\n"){
-                        produto = new Produto(id, codigo);
-                    }else{
-                        id = "";
-                    }
+                    id = "";
                 }
-            }catch(Exception e){
-                id = "";
-                produto = null;
-                leitura.close();
-                return pedido;
             }
-            if(id != ""){pedido.acrescentarProduto(produto);}
+            if(id != ""){
+                pedido.acrescentarProduto(produto);
+                id = "\n";
+            }
         }while(id != "\n");
         leitura.close();
         return pedido;
     }
-    public static String obterIdProduto(String codigo) throws IOException{
+    public static String obterIdProduto(String codigo){
         boolean codigo_obtido = false;
         String id = "";
         try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
@@ -50,10 +47,12 @@ public class App {
                     codigo_obtido = true;
                 }
             }
+        }catch(Exception e){
+            return "";
         }
         return codigo_obtido ? id : "\n";
     }
-    public static String obterCodigoProduto(String id) throws IOException{
+    public static String obterCodigoProduto(String id){
         boolean codigo_obtido = false;
         String codigo = "";
         try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
@@ -65,10 +64,38 @@ public class App {
                     codigo_obtido = true;
                 }
             }
-        }catch(IOException e){
+        }catch(Exception e){
+            System.out.println("Teste");
+            novoProduto();
             return "";
         }
+        if(id.length() > 0){
+            System.out.println("Teste");
+            novoProduto();
+        }
         return codigo_obtido ? codigo : "\n";
+    }
+    public static void gravarProduto(Produto produto){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
+            writer.append(produto.getCodigo());
+            writer.append(" ");
+            writer.append(produto.getId());
+            writer.append("\n");
+            writer.close();
+        }catch(IOException e){
+            return;
+        }
+    }
+    public static void novoProduto(){
+        new InterfaceNovoProduto().setVisible(true);
+    }
+    public static void cadastrarProduto(String id, String codigo){
+        String novo_id = id.substring(14);
+        String novo_codigo = codigo.substring(0, 13);
+        if(novo_id.length() > 0 && novo_codigo.length() == 13){
+            gravarProduto(new Produto(novo_id, novo_codigo));
+        }
     }
     public static void finalizarPedido(Pedido pedido){
         new InterfacePedido(pedido).setVisible(true);

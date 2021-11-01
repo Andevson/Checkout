@@ -9,30 +9,31 @@ public class App {
         new InterfaceNovoPedido(pedido).setVisible(true);
     }
     public static Pedido inserirProdutos(Pedido pedido, String entrada){
-        String codigo_produto = "";
+        String id = "";
         Produto produto = null;
         Scanner leitura = new Scanner(entrada);
         do{
             try{
-                codigo_produto = leitura.nextLine().substring(0, 13);
-                if(codigo_produto == null || codigo_produto == "" || codigo_produto == "\n"){
-                    codigo_produto = "\n";
+                id = leitura.nextLine();
+                System.out.print(id);
+                if(id == null || id == "" || id == "\n"){
+                    id = "\n";
                 }else{
-                    String id = obterIdProduto(codigo_produto);
-                    if(id != "\n"){
-                        produto = new Produto(id, codigo_produto);
+                    String codigo = obterCodigoProduto(id);
+                    if(codigo != "\n"){
+                        produto = new Produto(id, codigo);
                     }else{
-                        codigo_produto = "";
+                        id = "";
                     }
                 }
             }catch(Exception e){
-                codigo_produto = "";
+                id = "";
                 produto = null;
                 leitura.close();
                 return pedido;
             }
-            if(codigo_produto != ""){pedido.acrescentarProduto(produto);}
-        }while(codigo_produto != "\n");
+            if(id != ""){pedido.acrescentarProduto(produto);}
+        }while(id != "\n");
         leitura.close();
         return pedido;
     }
@@ -52,6 +53,23 @@ public class App {
         }
         return codigo_obtido ? id : "\n";
     }
+    public static String obterCodigoProduto(String id) throws IOException{
+        boolean codigo_obtido = false;
+        String codigo = "";
+        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null && !codigo_obtido) {
+                String data_id = line.substring(14);
+                if(data_id.equals(id)){
+                    codigo = line.substring(0, 13);
+                    codigo_obtido = true;
+                }
+            }
+        }catch(IOException e){
+            return "";
+        }
+        return codigo_obtido ? codigo : "\n";
+    }
     public static void finalizarPedido(Pedido pedido){
         new InterfacePedido(pedido).setVisible(true);
     }
@@ -68,6 +86,6 @@ public class App {
         return p;
     }
     public static void main(String[] args){
-        novoPedido();
+        new InterfaceApp().setVisible(true);
     }
 }

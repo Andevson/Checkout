@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -122,7 +124,27 @@ public class App {
         }
         return p;
     }
+    public static void getBaseDeDados(){
+        try{
+            FileInputStream file = new FileInputStream("data.txt");
+            // Base de dados carregada
+        }catch(IOException e){
+            // Base de dados não carregada
+            try{
+                File base_de_dados = new File("data.txt");
+                base_de_dados.createNewFile();
+                if(base_de_dados.exists()){
+                    new InterfaceMensagem("Nova base de dados criada.").setVisible(true);
+                }else{
+                    new InterfaceMensagem("Não foi possível ler ou criar a base de dados.").setVisible(true);
+                }
+            }catch(IOException e1){
+                new InterfaceMensagem("Ocorreu um erro com a base de dados.").setVisible(true);
+            }
+        }
+    }
     public static void main(String[] args){
+        getBaseDeDados();
         new InterfaceApp().setVisible(true);
     }
 }

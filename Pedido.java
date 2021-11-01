@@ -1,3 +1,5 @@
+import javax.swing.JTable;
+
 public class Pedido {
     private Produto[] produtos;
     private int quantidade;
@@ -42,5 +44,14 @@ public class Pedido {
         for(int m = 0; m < quantidade; m++){
             System.out.println("produto: " + produtos[m] + "\n");
         }
+    }
+    public JTable getTabelaProdutos(){
+            Object[][] dados = new String[quantidade][2];
+            String[] cabecalho = {"ID", "Código de barras"};
+            for(int n = 0; n < quantidade; n++){
+                dados[n][0] = produtos[n + 1].getId();
+                dados[n][1] = produtos[n + 1].getCodigo();
+            }
+            return new JTable(dados, cabecalho);
     }
 }

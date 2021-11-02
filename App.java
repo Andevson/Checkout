@@ -90,12 +90,12 @@ public class App {
             return "";
         }catch(IOException e1){
             if(id.length() > 0 && !codigo_obtido){
-                novoProduto();
+                novoProduto(id);
             }
             return "";
         }
         if(id.length() > 0 && !codigo_obtido){
-            novoProduto();
+            novoProduto(id);
         }
         return codigo_obtido ? codigo : "\n";
     }
@@ -111,8 +111,8 @@ public class App {
             return;
         }
     }
-    public static void novoProduto(){
-        new InterfaceNovoProduto().setVisible(true);
+    public static void novoProduto(String id){
+        new InterfaceNovoProduto(id).setVisible(true);
     }
     public static void cadastrarProduto(String id, String codigo){
         try{

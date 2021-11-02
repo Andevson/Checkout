@@ -9,7 +9,7 @@ public class InterfaceNovoProduto extends JFrame{
     private final JLabel lbl_codigo = new JLabel("Código:");
     private final JTextField txt_codigo = new JTextField("");
     private final JButton btn_cadastrar = new JButton("Cadastrar produto");
-    InterfaceNovoProduto(){
+    InterfaceNovoProduto(String id){
         super("Cadastro de novo produto");
         JPanel painel = new JPanel();
         JPanel centro = new JPanel();
@@ -35,6 +35,7 @@ public class InterfaceNovoProduto extends JFrame{
         txt_codigo.setMinimumSize(new Dimension(100, 25));
         txt_codigo.setPreferredSize(new Dimension(100, 25));
         txt_codigo.setMaximumSize(new Dimension(100, 25));
+        txt_id.setText(id);
         btn_cadastrar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

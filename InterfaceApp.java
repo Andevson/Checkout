@@ -47,7 +47,7 @@ public class InterfaceApp extends JFrame{
         btn_novo_produto.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.novoProduto();
+                App.novoProduto("");
             }
         });
     }

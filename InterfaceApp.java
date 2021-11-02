@@ -16,6 +16,7 @@ public class InterfaceApp extends JFrame{
             backgroundImage = ImageIO.read(new File("app_background.jpg"));
             lbl_background = new JLabel(new ImageIcon(backgroundImage));
         }catch(IOException e){
+            App.lancarMensagem("E221");
             return;
         }
     }

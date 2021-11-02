@@ -39,6 +39,8 @@ public class App {
                     id = "";
                     limpar_pedido = true;
                 }
+            }else{
+                limpar_pedido = true;
             }
         }while(id != "\n");
         if(limpar_pedido){pedido.limpar();}
@@ -61,7 +63,7 @@ public class App {
             }
             br.close();
         }catch(FileNotFoundException e){
-            new InterfaceMensagem("Erro na base de dados.", "Base de dados não encontrada!");
+            lancarMensagem("E211");
             getBaseDeDados();
             return "";
         }catch(IOException e1){
@@ -84,7 +86,7 @@ public class App {
             }
             br.close();
         }catch(FileNotFoundException e){
-            new InterfaceMensagem("Erro na base de dados.", "Base de dados não encontrada!");
+            lancarMensagem("E211");
             getBaseDeDados();
             return "";
         }catch(IOException e1){
@@ -122,10 +124,10 @@ public class App {
                     gravarProduto(new Produto(novo_id, novo_codigo));
                 }
             }else{
-                new InterfaceMensagem("Dados inválidos", "O ID inserido é inválido!").setVisible(true);
+                lancarMensagem("E311");
             }
         }catch(StringIndexOutOfBoundsException e){
-            new InterfaceMensagem("Dados inválidos", "O código inserido é inválido!").setVisible(true);
+            lancarMensagem("E312");
             return;
         }
     }
@@ -133,13 +135,13 @@ public class App {
         if(pedido.getQuantidade() > 0){
             new InterfacePedido(pedido).setVisible(true);
         }else{
-            new InterfaceMensagem("Pedido vazio", "Não há nenhum produto no pedido.").setVisible(true);
+            lancarMensagem("A321");
         }
     }
     public static Pedido saida(Pedido pedido, String entrada){
         Pedido p = pedido;
         if(entrada == null || entrada == "" || entrada == "\n"){
-            System.out.println("Código inválido!");
+            lancarMensagem("E331");
         }else{
             String codigo = entrada.substring(0, 13);
             if(p.getQuantidade() > 0){
@@ -159,12 +161,12 @@ public class App {
                 File base_de_dados = new File("data.txt");
                 base_de_dados.createNewFile();
                 if(base_de_dados.exists()){
-                    new InterfaceMensagem("Base de dados criada", "Uma nova base de dados foi criada.").setVisible(true);
+                    lancarMensagem("A212");
                 }else{
-                    new InterfaceMensagem("Erro ao criar base de dados", "Não foi possível ler ou criar a base de dados.").setVisible(true);
+                    lancarMensagem("E213");
                 }
             }catch(IOException e1){
-                new InterfaceMensagem("Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.").setVisible(true);
+                lancarMensagem("D214");
             }
         }
     }
@@ -178,13 +180,58 @@ public class App {
     }
     public static boolean validarId(String id){
         if(id == null || id == "" || id == "\n" || id.isEmpty() || id.isBlank()){
-            new InterfaceMensagem("ID não inserido", "Um dos produtos inseridos é inválido.").setVisible(true);
+            lancarMensagem("E341");
             return false;
         }else if(id.charAt(0) == ' '){
-            new InterfaceMensagem("ID inválido", "Primeira letra não pode ser um espaço.").setVisible(true);
+            lancarMensagem("E342");
             return false;
         }
         return true;
+    }
+    public static void lancarMensagem(String mensagem){
+        switch(mensagem){
+            case "D111":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar mensagem.", "Mensagem não identificada.").setVisible(true);
+                break;
+            case "E211":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na base de dados.", "Base de dados não encontrada.").setVisible(true);
+                break;
+            case "A212":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Base de dados criada", "Uma nova base de dados foi criada.").setVisible(true);
+                break;
+            case "E213":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível ler ou criar a base de dados.").setVisible(true);
+                break;
+            case "D214":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.").setVisible(true);
+                break;
+            case "E221":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.").setVisible(true);
+                break;
+            case "E311":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto.", "O ID inserido é inválido.").setVisible(true);
+                break;
+            case "E312":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto.", "O código inserido é inválido.").setVisible(true);
+                break;
+            case "A321":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar pedido.", "Não há nenhum produto no pedido.").setVisible(true);
+                break;
+            case "A322":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido!", "Todos os produtos tiveram saída.").setVisible(true);
+                break;
+            case "E331":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na entrada de código.", "O código de barras é inválido.").setVisible(true);
+                break;
+            case "E341":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "O ID inserido é vazio ou inválido.").setVisible(true);
+                break;
+            case "E342":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "Primeira letra não pode ser um espaço.").setVisible(true);
+                break;
+            default:
+                lancarMensagem("E111");
+        }
     }
     public static void main(String[] args){
         getBaseDeDados();

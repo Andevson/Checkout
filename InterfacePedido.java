@@ -56,7 +56,7 @@ public class InterfacePedido extends JFrame{
                         topo.setBackground(new Color(255, 0, 0));
                     }
                     if(p.getQuantidade() <= 0){
-                        new InterfaceMensagem("Checkout concluido!", "Todos os produtos tiveram saída.").setVisible(true);
+                        App.lancarMensagem("A322");
                         dispose();
                     }
                     atualizaTabela(p);

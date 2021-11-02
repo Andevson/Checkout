@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,7 +49,8 @@ public class App {
     public static String obterIdProduto(String codigo){
         boolean codigo_obtido = false;
         String id = "";
-        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
             String line;
             while ((line = br.readLine()) != null && !codigo_obtido) {
                 String cod = "";
@@ -58,7 +60,12 @@ public class App {
                     codigo_obtido = true;
                 }
             }
-        }catch(Exception e){
+            br.close();
+        }catch(FileNotFoundException e){
+            new InterfaceMensagem("Base de dados não encontrada!");
+            getBaseDeDados();
+            return "";
+        }catch(IOException e1){
             return "";
         }
         return codigo_obtido ? id : "\n";
@@ -66,7 +73,8 @@ public class App {
     public static String obterCodigoProduto(String id){
         boolean codigo_obtido = false;
         String codigo = "";
-        try (BufferedReader br = new BufferedReader(new FileReader("data.txt"))) {
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
             String line;
             while ((line = br.readLine()) != null && !codigo_obtido) {
                 String data_id = line.substring(14);
@@ -75,7 +83,12 @@ public class App {
                     codigo_obtido = true;
                 }
             }
-        }catch(Exception e){
+            br.close();
+        }catch(FileNotFoundException e){
+            new InterfaceMensagem("Base de dados não encontrada!");
+            getBaseDeDados();
+            return "";
+        }catch(IOException e1){
             if(id.length() > 0 && !codigo_obtido){
                 novoProduto();
             }

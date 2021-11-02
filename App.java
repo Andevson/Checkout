@@ -130,7 +130,11 @@ public class App {
         }
     }
     public static void finalizarPedido(Pedido pedido){
-        new InterfacePedido(pedido).setVisible(true);
+        if(pedido.getQuantidade() > 0){
+            new InterfacePedido(pedido).setVisible(true);
+        }else{
+            new InterfaceMensagem("Pedido vazio", "Não há nenhum produto no pedido.").setVisible(true);
+        }
     }
     public static Pedido saida(Pedido pedido, String entrada){
         Pedido p = pedido;

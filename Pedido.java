@@ -46,4 +46,7 @@ public class Pedido {
             }
             return new JTable(dados, cabecalho);
     }
+    public void limpar(){
+        quantidade = 0;
+    }
 }

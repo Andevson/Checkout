@@ -6,7 +6,7 @@ import javax.swing.*;
 public class InterfaceMensagem extends JDialog{
     private final JLabel txt_mensagem = new JLabel("");
     private final JButton btn_ok = new JButton("Ok");
-    InterfaceMensagem(String mensagem){
+    InterfaceMensagem(String nome, String mensagem){
         //super("Cadastro de novo produto");
         JPanel painel = new JPanel();
         JPanel centro = new JPanel();
@@ -20,7 +20,7 @@ public class InterfaceMensagem extends JDialog{
         txt_mensagem.setText(mensagem);
         centro.add(txt_mensagem);
         sul.add(btn_ok);
-        setTitle("Aviso!");
+        setTitle(nome);
         setBounds(500, 100, 250, 100);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         App.setIcone(this);

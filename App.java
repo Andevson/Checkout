@@ -18,6 +18,7 @@ public class App {
         new InterfaceNovoPedido(pedido).setVisible(true);
     }
     public static Pedido inserirProdutos(Pedido pedido, String entrada){
+        boolean limpar_pedido = false;
         String id = "";
         Produto produto = null;
         Scanner leitura = new Scanner(entrada);
@@ -26,23 +27,21 @@ public class App {
                 id = leitura.nextLine();
             }catch(NoSuchElementException e){
                 leitura.close();
+                if(limpar_pedido){pedido.limpar();}
                 return pedido;
             }
-            if(id == null || id == "" || id == "\n"){
-                id = "\n";
-            }else{
+            if(validarId(id)){
                 String codigo = obterCodigoProduto(id);
                 if(codigo != "\n"){
                     produto = new Produto(id, codigo);
+                    pedido.acrescentarProduto(produto);
                 }else{
                     id = "";
+                    limpar_pedido = true;
                 }
             }
-            if(id != ""){
-                pedido.acrescentarProduto(produto);
-                id = "";
-            }
         }while(id != "\n");
+        if(limpar_pedido){pedido.limpar();}
         leitura.close();
         return pedido;
     }
@@ -62,7 +61,7 @@ public class App {
             }
             br.close();
         }catch(FileNotFoundException e){
-            new InterfaceMensagem("Base de dados não encontrada!");
+            new InterfaceMensagem("Erro na base de dados.", "Base de dados não encontrada!");
             getBaseDeDados();
             return "";
         }catch(IOException e1){
@@ -85,7 +84,7 @@ public class App {
             }
             br.close();
         }catch(FileNotFoundException e){
-            new InterfaceMensagem("Base de dados não encontrada!");
+            new InterfaceMensagem("Erro na base de dados.", "Base de dados não encontrada!");
             getBaseDeDados();
             return "";
         }catch(IOException e1){
@@ -116,13 +115,18 @@ public class App {
     }
     public static void cadastrarProduto(String id, String codigo){
         try{
-            String novo_id = id;
-            String novo_codigo = codigo.substring(0, 13);
-            if(novo_id.length() > 0 && novo_codigo.length() == 13){
-                gravarProduto(new Produto(novo_id, novo_codigo));
+            if(validarId(id)){
+                String novo_id = id;
+                String novo_codigo = codigo.substring(0, 13);
+                if(novo_id.length() > 0 && novo_codigo.length() == 13){
+                    gravarProduto(new Produto(novo_id, novo_codigo));
+                }
+            }else{
+                new InterfaceMensagem("Dados inválidos", "O ID inserido é inválido!").setVisible(true);
             }
         }catch(StringIndexOutOfBoundsException e){
-            new InterfaceMensagem("Os dados não são válidos!").setVisible(true);
+            new InterfaceMensagem("Dados inválidos", "O código inserido é inválido!").setVisible(true);
+            return;
         }
     }
     public static void finalizarPedido(Pedido pedido){
@@ -151,12 +155,12 @@ public class App {
                 File base_de_dados = new File("data.txt");
                 base_de_dados.createNewFile();
                 if(base_de_dados.exists()){
-                    new InterfaceMensagem("Nova base de dados criada.").setVisible(true);
+                    new InterfaceMensagem("Base de dados criada", "Uma nova base de dados foi criada.").setVisible(true);
                 }else{
-                    new InterfaceMensagem("Não foi possível ler ou criar a base de dados.").setVisible(true);
+                    new InterfaceMensagem("Erro ao criar base de dados", "Não foi possível ler ou criar a base de dados.").setVisible(true);
                 }
             }catch(IOException e1){
-                new InterfaceMensagem("Ocorreu um erro com a base de dados.").setVisible(true);
+                new InterfaceMensagem("Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.").setVisible(true);
             }
         }
     }
@@ -167,6 +171,16 @@ public class App {
     public static void setIcone(JDialog tela){
         ImageIcon icone = new ImageIcon("app_icon.png");
         tela.setIconImage(icone.getImage());
+    }
+    public static boolean validarId(String id){
+        if(id == null || id == "" || id == "\n" || id.isEmpty() || id.isBlank()){
+            new InterfaceMensagem("ID não inserido", "Um dos produtos inseridos é inválido.").setVisible(true);
+            return false;
+        }else if(id.charAt(0) == ' '){
+            new InterfaceMensagem("ID inválido", "Primeira letra não pode ser um espaço.").setVisible(true);
+            return false;
+        }
+        return true;
     }
     public static void main(String[] args){
         getBaseDeDados();

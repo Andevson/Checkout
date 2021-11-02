@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 public class App {
     public static void novoPedido(){
@@ -128,6 +131,7 @@ public class App {
         try{
             FileInputStream file = new FileInputStream("data.txt");
             // Base de dados carregada
+            file.close();
         }catch(IOException e){
             // Base de dados não carregada
             try{
@@ -142,6 +146,14 @@ public class App {
                 new InterfaceMensagem("Ocorreu um erro com a base de dados.").setVisible(true);
             }
         }
+    }
+    public static void setIcone(JFrame tela){
+        ImageIcon icone = new ImageIcon("app_icon.png");
+        tela.setIconImage(icone.getImage());
+    }
+    public static void setIcone(JDialog tela){
+        ImageIcon icone = new ImageIcon("app_icon.png");
+        tela.setIconImage(icone.getImage());
     }
     public static void main(String[] args){
         getBaseDeDados();

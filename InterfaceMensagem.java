@@ -20,7 +20,10 @@ public class InterfaceMensagem extends JDialog{
         txt_mensagem.setText(mensagem);
         centro.add(txt_mensagem);
         sul.add(btn_ok);
+        setTitle("Aviso!");
         setBounds(500, 100, 250, 100);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        App.setIcone(this);
         setModal(true);
         setResizable(false);
         btn_ok.addActionListener(new ActionListener(){

@@ -29,6 +29,8 @@ public class InterfaceNovoPedido extends JFrame{
         centro.add(tbl_produtos.getTableHeader(), BorderLayout.NORTH);
         centro.add(tbl_produtos, BorderLayout.CENTER);
         setBounds(450, 50, 400, 550);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        App.setIcone(this);
         txt_entrada.setMinimumSize(new Dimension(100, 20));
         txt_entrada.setPreferredSize(new Dimension(100, 20));
         txt_entrada.setMaximumSize(new Dimension(100, 20));

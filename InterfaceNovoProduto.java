@@ -27,6 +27,8 @@ public class InterfaceNovoProduto extends JFrame{
         sul.add(btn_cadastrar);
         setBounds(450, 50, 400, 120);
         setResizable(false);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        App.setIcone(this);
         txt_id.setMinimumSize(new Dimension(100, 25));
         txt_id.setPreferredSize(new Dimension(100, 25));
         txt_id.setMaximumSize(new Dimension(100, 25));

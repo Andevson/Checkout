@@ -36,6 +36,8 @@ public class InterfaceApp extends JFrame{
         topo.add(btn_novo_produto);
         setBounds(50, 50, 400, 450);
         setResizable(false);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        App.setIcone(this);
         btn_novo_pedido.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

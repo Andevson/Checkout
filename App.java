@@ -191,10 +191,10 @@ public class App {
     public static void lancarMensagem(String mensagem){
         switch(mensagem){
             case "D111":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar mensagem.", "Mensagem não identificada.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar mensagem", "Mensagem não identificada.").setVisible(true);
                 break;
             case "E211":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na base de dados.", "Base de dados não encontrada.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na base de dados", "Base de dados não encontrada.").setVisible(true);
                 break;
             case "A212":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Base de dados criada", "Uma nova base de dados foi criada.").setVisible(true);
@@ -209,19 +209,19 @@ public class App {
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.").setVisible(true);
                 break;
             case "E311":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto.", "O ID inserido é inválido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto", "O ID inserido é inválido.").setVisible(true);
                 break;
             case "E312":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto.", "O código inserido é inválido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto", "O código inserido é inválido.").setVisible(true);
                 break;
             case "A321":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar pedido.", "Não há nenhum produto no pedido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar pedido", "Não há nenhum produto no pedido.").setVisible(true);
                 break;
             case "A322":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido!", "Todos os produtos tiveram saída.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido", "Todos os produtos tiveram saída.").setVisible(true);
                 break;
             case "E331":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na entrada de código.", "O código de barras é inválido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na entrada de código", "O código de barras é inválido.").setVisible(true);
                 break;
             case "E341":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "O ID inserido é vazio ou inválido.").setVisible(true);

@@ -144,12 +144,9 @@ public class App {
     }
     public static Pedido saida(Pedido pedido, String entrada){
         Pedido p = pedido;
-        if(entrada == null || entrada == "" || entrada == "\n"){
-            lancarMensagem("E331");
-        }else{
-            String codigo = entrada.substring(0, 13);
+        if(validarCodigo(entrada.substring(0, entrada.length() - 1))){
             if(p.getQuantidade() > 0){
-                p.saidaProduto(codigo);
+                p.saidaProduto(entrada);
             }
         }
         return p;
@@ -186,8 +183,18 @@ public class App {
         if(id == null || id == "" || id == "\n" || id.isEmpty() || id.isBlank()){
             lancarMensagem("E341");
             return false;
-        }else if(id.charAt(0) == ' '){
+        }else if(id.contains(" ")){
             lancarMensagem("E342");
+            return false;
+        }
+        return true;
+    }
+    public static boolean validarCodigo(String codigo){
+        if(codigo == null || codigo == "" || codigo == "\n" || codigo.isEmpty() || codigo.isBlank()){
+            lancarMensagem("E331");
+            return false;
+        }else if(codigo.contains(" ")){
+            //
             return false;
         }
         return true;

@@ -48,8 +48,9 @@ public class InterfaceNovoProduto extends JFrame{
         btn_cadastrar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.cadastrarProduto(txt_id.getText(), txt_codigo.getText());
-                dispose();
+                if(App.cadastrarProduto(txt_id.getText(), txt_codigo.getText())){
+                    dispose();
+                }
             }
         });
     }

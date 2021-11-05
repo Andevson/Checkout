@@ -115,20 +115,24 @@ public class App {
     public static void novoProduto(String id){
         new InterfaceNovoProduto(id).setVisible(true);
     }
-    public static void cadastrarProduto(String id, String codigo){
+    public static boolean cadastrarProduto(String id, String codigo){
         try{
             if(validarId(id)){
                 String novo_id = id;
                 String novo_codigo = codigo.substring(0, 13);
                 if(novo_id.length() > 0 && novo_codigo.length() == 13){
                     gravarProduto(new Produto(novo_id, novo_codigo));
+                    return true;
+                }else{
+                    return false;
                 }
             }else{
                 lancarMensagem("E311");
+                return false;
             }
         }catch(StringIndexOutOfBoundsException e){
             lancarMensagem("E312");
-            return;
+            return false;
         }
     }
     public static void finalizarPedido(Pedido pedido){

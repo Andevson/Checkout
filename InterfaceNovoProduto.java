@@ -36,6 +36,15 @@ public class InterfaceNovoProduto extends JFrame{
         txt_codigo.setPreferredSize(new Dimension(100, 25));
         txt_codigo.setMaximumSize(new Dimension(100, 25));
         txt_id.setText(id);
+        addWindowFocusListener(new WindowAdapter() {
+            public void windowGainedFocus(WindowEvent e) {
+                if(id.length() > 0){
+                    txt_codigo.requestFocusInWindow();
+                }else{
+                    txt_id.requestFocusInWindow();
+                }
+            }
+        });
         btn_cadastrar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

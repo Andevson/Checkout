@@ -20,20 +20,18 @@ public class App {
     public static Pedido inserirProdutos(Pedido pedido, String entrada){
         boolean limpar_pedido = false;
         String id = "";
-        Produto produto = null;
         Scanner leitura = new Scanner(entrada);
         do{
             try{
-                id = leitura.nextLine();
+                id = formatarEntrada(leitura.nextLine());
             }catch(NoSuchElementException e){
                 leitura.close();
                 if(limpar_pedido){pedido.limpar();}
                 return pedido;
             }
             if(validarId(id)){
-                String codigo = obterCodigoProduto(id);
-                if(codigo != "\n"){
-                    produto = new Produto(id, codigo);
+                Produto produto = getProduto(id, "");
+                if(produto != null){
                     pedido.acrescentarProduto(produto);
                 }else{
                     id = "";
@@ -47,64 +45,11 @@ public class App {
         leitura.close();
         return pedido;
     }
-    public static String obterIdProduto(String codigo){
-        boolean codigo_obtido = false;
-        String id = "";
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
-            String line;
-            while ((line = br.readLine()) != null && !codigo_obtido) {
-                String cod = "";
-                cod = line.substring(0, 13);
-                if(cod.equals(codigo)){
-                    id = line.substring(14);
-                    codigo_obtido = true;
-                }
-            }
-            br.close();
-        }catch(FileNotFoundException e){
-            lancarMensagem("E211");
-            getBaseDeDados();
-            return "";
-        }catch(IOException e1){
-            return "";
-        }
-        return codigo_obtido ? id : "\n";
-    }
-    public static String obterCodigoProduto(String id){
-        boolean codigo_obtido = false;
-        String codigo = "";
-        try{
-            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
-            String line;
-            while ((line = br.readLine()) != null && !codigo_obtido) {
-                String data_id = line.substring(14);
-                if(data_id.equals(id)){
-                    codigo = line.substring(0, 13);
-                    codigo_obtido = true;
-                }
-            }
-            br.close();
-        }catch(FileNotFoundException e){
-            lancarMensagem("E211");
-            getBaseDeDados();
-            return "";
-        }catch(IOException e1){
-            if(id.length() > 0 && !codigo_obtido){
-                novoProduto(id);
-            }
-            return "";
-        }
-        if(id.length() > 0 && !codigo_obtido){
-            novoProduto(id);
-        }
-        return codigo_obtido ? codigo : "\n";
-    }
     public static void gravarProduto(Produto produto){
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
             writer.append(produto.getCodigo());
-            writer.append(" ");
+            writer.append("\t");
             writer.append(produto.getId());
             writer.append("\n");
             writer.close();
@@ -116,16 +61,12 @@ public class App {
         new InterfaceNovoProduto(id).setVisible(true);
     }
     public static boolean cadastrarProduto(String id, String codigo){
+        String produto_id = formatarEntrada(id);
+        String produto_codigo = formatarEntrada(codigo);
         try{
-            if(validarId(id)){
-                String novo_id = id;
-                String novo_codigo = codigo.substring(0, 13);
-                if(novo_id.length() > 0 && novo_codigo.length() == 13){
-                    gravarProduto(new Produto(novo_id, novo_codigo));
-                    return true;
-                }else{
-                    return false;
-                }
+            if(validarId(produto_id) && validarCodigo(produto_codigo)){
+                gravarProduto(new Produto(produto_id, produto_codigo));
+                return true;
             }else{
                 lancarMensagem("A311");
                 return false;
@@ -172,6 +113,42 @@ public class App {
             }
         }
     }
+    public static Produto getProduto(String id, String codigo){
+        String produto_id = "";
+        String produto_codigo = "";
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+            String line;
+            while ((line = br.readLine()) != null) {
+                int n = 0;
+                for(n = 0; n < line.length(); n++){
+                    if(line.charAt(n) == '\t'){
+                        produto_codigo = line.substring(0, n);
+                        n++;
+                        break;
+                    }
+                }
+                produto_id = line.substring(n, line.length());
+                if(validarId(produto_id) && validarCodigo(produto_codigo) && (produto_codigo.equals(codigo) || produto_id.equals(id))){
+                    br.close();
+                    return new Produto(produto_id, produto_codigo);
+                }
+            }
+            br.close();
+        }catch(FileNotFoundException e){
+            lancarMensagem("E211");
+            getBaseDeDados();
+            return null;
+        }catch(IOException e1){
+            return null;
+        }
+        if(id.length() > 0){
+            novoProduto(id);
+        }else if(codigo.length() > 0){
+            novoProduto(codigo);
+        }
+        return null;
+    }
     public static void setIcone(JFrame tela){
         ImageIcon icone = new ImageIcon("app_icon.png");
         tela.setIconImage(icone.getImage());
@@ -206,6 +183,9 @@ public class App {
             if(entrada.charAt(n) == '\n' || entrada.charAt(n) == '\t'){
                 entrada_valida = entrada.substring(0, n);
                 break;
+            }
+            if(n == (entrada.length() - 1)){
+                entrada_valida = entrada.substring(0, n + 1);
             }
         }
         return entrada_valida;

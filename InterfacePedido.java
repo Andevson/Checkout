@@ -47,7 +47,7 @@ public class InterfacePedido extends JFrame{
             public void insertUpdate(DocumentEvent e) {
                 String entrada = txt_entrada.getText();
                 topo.setBackground(new Color(222, 222, 222));
-                if(entrada.length() >= 14){
+                if(entrada.charAt(entrada.length() - 1) == '\n'){
                     int qty = p.getQuantidade();
                     p = App.saida(pedido, entrada);
                     if(qty > p.getQuantidade()){

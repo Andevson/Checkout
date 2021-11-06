@@ -144,9 +144,10 @@ public class App {
     }
     public static Pedido saida(Pedido pedido, String entrada){
         Pedido p = pedido;
-        if(validarCodigo(entrada.substring(0, entrada.length() - 1))){
+        String entrada_formatada = formatarEntrada(entrada);
+        if(validarCodigo(entrada_formatada)){
             if(p.getQuantidade() > 0){
-                p.saidaProduto(entrada);
+                p.saidaProduto(entrada_formatada);
             }
         }
         return p;
@@ -198,6 +199,16 @@ public class App {
             return false;
         }
         return true;
+    }
+    public static String formatarEntrada(String entrada){
+        String entrada_valida = "";
+        for(int n = 0; n < entrada.length(); n++){
+            if(entrada.charAt(n) == '\n' || entrada.charAt(n) == '\t'){
+                entrada_valida = entrada.substring(0, n);
+                break;
+            }
+        }
+        return entrada_valida;
     }
     public static void lancarMensagem(String mensagem){
         switch(mensagem){

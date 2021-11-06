@@ -54,6 +54,8 @@ public class App {
             writer.append("\n");
             writer.close();
         }catch(IOException e){
+            lancarMensagem("E215");
+            getBaseDeDados();
             return;
         }
     }
@@ -206,6 +208,9 @@ public class App {
                 break;
             case "E214":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.").setVisible(true);
+                break;
+            case "E215":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao gravar produto", "Não foi possível armazenar dados no banco de dados.").setVisible(true);
                 break;
             case "E221":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.").setVisible(true);

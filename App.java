@@ -127,11 +127,11 @@ public class App {
                     return false;
                 }
             }else{
-                lancarMensagem("E311");
+                lancarMensagem("A311");
                 return false;
             }
         }catch(StringIndexOutOfBoundsException e){
-            lancarMensagem("E312");
+            lancarMensagem("A312");
             return false;
         }
     }
@@ -168,7 +168,7 @@ public class App {
                     lancarMensagem("E213");
                 }
             }catch(IOException e1){
-                lancarMensagem("D214");
+                lancarMensagem("E214");
             }
         }
     }
@@ -181,21 +181,21 @@ public class App {
         tela.setIconImage(icone.getImage());
     }
     public static boolean validarId(String id){
-        if(id == null || id == "" || id == "\n" || id.isEmpty() || id.isBlank()){
-            lancarMensagem("E341");
+        if(id == null || id == "" || id == "\n" || id.isEmpty()){
+            lancarMensagem("A341");
             return false;
         }else if(id.contains(" ")){
-            lancarMensagem("E342");
+            lancarMensagem("A342");
             return false;
         }
         return true;
     }
     public static boolean validarCodigo(String codigo){
-        if(codigo == null || codigo == "" || codigo == "\n" || codigo.isEmpty() || codigo.isBlank()){
-            lancarMensagem("E331");
+        if(codigo == null || codigo == "" || codigo == "\n" || codigo.isEmpty()){
+            lancarMensagem("A331");
             return false;
         }else if(codigo.contains(" ")){
-            //
+            lancarMensagem("A332");
             return false;
         }
         return true;
@@ -224,32 +224,35 @@ public class App {
             case "E213":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível ler ou criar a base de dados.").setVisible(true);
                 break;
-            case "D214":
+            case "E214":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.").setVisible(true);
                 break;
             case "E221":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.").setVisible(true);
                 break;
-            case "E311":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto", "O ID inserido é inválido.").setVisible(true);
+            case "A311":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "O ID inserido é inválido.").setVisible(true);
                 break;
-            case "E312":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao cadastrar produto", "O código inserido é inválido.").setVisible(true);
+            case "A312":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "O código inserido é inválido.").setVisible(true);
                 break;
             case "A321":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar pedido", "Não há nenhum produto no pedido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Pedido vazio", "Não há nenhum produto no pedido.").setVisible(true);
                 break;
             case "A322":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido", "Todos os produtos tiveram saída.").setVisible(true);
                 break;
-            case "E331":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na entrada de código", "O código de barras é inválido.").setVisible(true);
+            case "A331":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Código não inserido", "Nenhum código de barras foi inserido.").setVisible(true);
                 break;
-            case "E341":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "O ID inserido é vazio ou inválido.").setVisible(true);
+            case "A332":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Código inválido", "Código de barras não pode conter espaços.").setVisible(true);
                 break;
-            case "E342":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "Primeira letra não pode ser um espaço.").setVisible(true);
+            case "A341":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "Nenhum ID foi inserido.").setVisible(true);
+                break;
+            case "A342":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "ID não pode conter espaços.").setVisible(true);
                 break;
             default:
                 lancarMensagem("E111");

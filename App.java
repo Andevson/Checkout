@@ -22,29 +22,33 @@ public class App {
         new InterfaceCfg().setVisible(true);
     }
     public static Pedido inserirProdutos(Pedido pedido, String entrada){
+        boolean usar_cabecalho = Boolean.parseBoolean(getCfg()[0]);
         boolean limpar_pedido = false;
         String id = "";
         Scanner leitura = new Scanner(entrada);
-        do{
-            try{
-                id = formatarEntrada(leitura.nextLine());
-            }catch(NoSuchElementException e){
-                leitura.close();
-                if(limpar_pedido){pedido.limpar();}
-                return pedido;
+        try{
+            if(usar_cabecalho){
+                leitura.nextLine();
             }
-            if(validarId(id)){
-                Produto produto = getProduto(id, "");
-                if(produto != null){
-                    pedido.acrescentarProduto(produto);
+            do{
+                id = formatarEntrada(leitura.nextLine());
+                if(validarId(id)){
+                    Produto produto = getProduto(id, "");
+                    if(produto != null){
+                        pedido.acrescentarProduto(produto);
+                    }else{
+                        id = "";
+                        limpar_pedido = true;
+                    }
                 }else{
-                    id = "";
                     limpar_pedido = true;
                 }
-            }else{
-                limpar_pedido = true;
-            }
-        }while(id != "\n");
+            }while(id != "\n");
+        }catch(NoSuchElementException e){
+            leitura.close();
+            if(limpar_pedido){pedido.limpar();}
+            return pedido;
+        }
         if(limpar_pedido){pedido.limpar();}
         leitura.close();
         return pedido;

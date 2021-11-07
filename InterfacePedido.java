@@ -5,6 +5,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 
 public class InterfacePedido extends JFrame{
+    JPanel painel = new JPanel();
+    JPanel topo = new JPanel();
+    JPanel centro = new JPanel();
+    JScrollPane centro_scroll = new JScrollPane(centro);
     private final JLabel lbl_entrada = new JLabel("Entre com código de barras:");
     private final JTextArea txt_entrada = new JTextArea("");
     private final JLabel lbl_qty_restante = new JLabel("Finalizar Pedido");
@@ -19,26 +23,25 @@ public class InterfacePedido extends JFrame{
     }
     InterfacePedido(Pedido pedido){
         super("Pedido");
-        JPanel painel = new JPanel();
-        JPanel topo = new JPanel();
-        JPanel centro = new JPanel();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(450, 50, 400, 500);
+        App.setIcone(this);
         painel.setLayout(new BorderLayout());
         topo.setLayout(new FlowLayout());
         centro.setLayout(new BorderLayout());
+        centro_scroll.getVerticalScrollBar().setUnitIncrement(6);
         add(painel);
         painel.add(topo, BorderLayout.NORTH);
-        painel.add(centro, BorderLayout.CENTER);
+        painel.add(centro_scroll, BorderLayout.CENTER);
         topo.add(lbl_entrada);
         topo.add(txt_entrada);
         topo.add(lbl_qty_restante);
         centro.add(tbl_produtos.getTableHeader(), BorderLayout.NORTH);
         centro.add(tbl_produtos, BorderLayout.CENTER);
-        setBounds(450, 50, 400, 550);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        App.setIcone(this);
         txt_entrada.setMinimumSize(new Dimension(100, 20));
         txt_entrada.setPreferredSize(new Dimension(100, 20));
         txt_entrada.setMaximumSize(new Dimension(100, 20));
+        centro_scroll.setPreferredSize(new Dimension(200, 500));
         this.p = pedido;
         atualizaTabela(p);
         lbl_qty_restante.setText("Restante: " + p.getQuantidade());

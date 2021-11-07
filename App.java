@@ -18,6 +18,9 @@ public class App {
         Pedido pedido = new Pedido();
         new InterfaceNovoPedido(pedido).setVisible(true);
     }
+    public static void novoCfg(){
+        new InterfaceCfg().setVisible(true);
+    }
     public static Pedido inserirProdutos(Pedido pedido, String entrada){
         boolean limpar_pedido = false;
         String id = "";
@@ -335,7 +338,7 @@ public class App {
         }
     }
     public static void main(String[] args){
-        System.out.println(getCfg()[0]);
+        getConfiguracao();
         getBaseDeDados();
         new InterfaceApp().setVisible(true);
     }

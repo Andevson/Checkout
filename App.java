@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
@@ -114,6 +115,96 @@ public class App {
                 lancarMensagem("E214");
             }
         }
+    }
+    public static void getConfiguracao(){
+        try{
+            FileInputStream file = new FileInputStream("config.cfg");
+            // Base de dados carregada
+            file.close();
+        }catch(IOException e){
+            // Base de dados não carregada
+            try{
+                File base_de_dados = new File("config.cfg");
+                base_de_dados.createNewFile();
+                if(base_de_dados.exists()){
+                    //lancarMensagem("A212");
+                }else{
+                    //lancarMensagem("E213");
+                }
+            }catch(IOException e1){
+                //lancarMensagem("E214");
+            }
+        }
+    }
+    public static String[] getCfg(){
+        boolean usar_cabecalho = true;
+        byte ordem_id = 1;
+        byte ordem_codigo = 2;
+        Boolean[] check_leitura = {false, false, false};
+        String[] config = {"" + usar_cabecalho, "" + ordem_id, "" + ordem_codigo};
+        try{
+            BufferedReader br = new BufferedReader(new FileReader("config.cfg"));
+            String line;
+            while ((line = br.readLine()) != null) {
+                for(int n = 0; n < line.length(); n++){
+                    if(line.charAt(n) == '='){
+                        String propriedade = line.substring(0, n);
+                        String valor = line.substring(n + 1);
+                        if(propriedade.length() > 0 && valor.length() > 0){
+                            switch (propriedade) {
+                                case "USAR_CABECALHO":
+                                    usar_cabecalho = Boolean.parseBoolean(valor);
+                                    check_leitura[0] = true;
+                                    break;
+                                case "ORDEM_ID":
+                                    ordem_id = Byte.parseByte(valor);
+                                    check_leitura[1] = true;
+                                    break;
+                                case "ORDEM_CODIGO":
+                                    ordem_codigo = Byte.parseByte(valor);
+                                    check_leitura[2] = true;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            br.close();
+        }catch(FileNotFoundException e){
+            //lancarMensagem("E211");
+            getConfiguracao();
+            return null;
+        }catch(IOException e1){
+            return null;
+        }
+        if(!check_leitura[0] || !check_leitura[1] || !check_leitura[2]){
+            resetCfg();
+        }else{
+            config[0] = "" + usar_cabecalho;
+            config[1] = "" + ordem_id;
+            config[2] = "" + ordem_codigo;
+        }
+        return config;
+    }
+    public static void setCfg(boolean usar_cabecalho, byte ordem_id, byte ordem_codigo){
+        try{
+            PrintWriter gravacao = new PrintWriter("config.cfg");
+            gravacao.println("USAR_CABECALHO=" + usar_cabecalho);
+            gravacao.println("ORDEM_ID=" + ordem_id);
+            gravacao.println("ORDEM_CODIGO=" + ordem_codigo);
+            gravacao.close();
+        }catch(FileNotFoundException e){
+
+        }
+    }
+    private static void resetCfg(){
+        boolean usar_cabecalho = true;
+        byte ordem_id = 1;
+        byte ordem_codigo = 2;
+        setCfg(usar_cabecalho, ordem_id, ordem_codigo);
     }
     public static Produto getProduto(String id, String codigo){
         String produto_id = "";
@@ -244,6 +335,7 @@ public class App {
         }
     }
     public static void main(String[] args){
+        System.out.println(getCfg()[0]);
         getBaseDeDados();
         new InterfaceApp().setVisible(true);
     }

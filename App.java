@@ -25,17 +25,27 @@ public class App {
         boolean usar_cabecalho = Boolean.parseBoolean(getCfg()[0]);
         boolean limpar_pedido = false;
         String id = "";
+        String quantidade = "";
         Scanner leitura = new Scanner(entrada);
         try{
             if(usar_cabecalho){
                 leitura.nextLine();
             }
             do{
-                id = formatarEntrada(leitura.nextLine());
+                String linha = leitura.nextLine();
+                id = formatarEntrada(linha);
+                quantidade = linha.substring(id.length() + 1);
                 if(validarId(id)){
                     Produto produto = getProduto(id, "");
                     if(produto != null){
-                        pedido.acrescentarProduto(produto);
+                        if(quantidade.length() > 0){
+                            System.out.println("quantidade aceita:" + quantidade);
+                            pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
+                            
+                        }else{
+                            pedido.acrescentarProduto(produto, produto.getFator());
+                            System.out.println("quantidade invalida!\n");
+                        }
                     }else{
                         id = "";
                         limpar_pedido = true;
@@ -75,7 +85,7 @@ public class App {
         String produto_codigo = formatarEntrada(codigo);
         try{
             if(validarId(produto_id) && validarCodigo(produto_codigo)){
-                gravarProduto(new Produto(produto_id, produto_codigo));
+                gravarProduto(new Produto(produto_id, produto_codigo, 1));
                 return true;
             }else{
                 lancarMensagem("A311");
@@ -216,6 +226,7 @@ public class App {
     public static Produto getProduto(String id, String codigo){
         String produto_id = "";
         String produto_codigo = "";
+        String produto_fator_de_saida = "";
         try{
             BufferedReader br = new BufferedReader(new FileReader("data.txt"));
             String line;
@@ -228,10 +239,19 @@ public class App {
                         break;
                     }
                 }
-                produto_id = line.substring(n, line.length());
-                if(validarId(produto_id) && validarCodigo(produto_codigo) && (produto_codigo.equals(codigo) || produto_id.equals(id))){
+                int i = n;
+                for(i = n; i < line.length(); i++){
+                    if(line.charAt(i) == '\t'){
+                        produto_id = line.substring(n, i);
+                        i++;
+                        break;
+                    }
+                }
+                produto_fator_de_saida = line.substring(i, line.length());
+                if(validarId(produto_id) && validarCodigo(produto_codigo) && validarFator(produto_fator_de_saida) 
+                && (produto_codigo.equals(codigo) || produto_id.equals(id))){
                     br.close();
-                    return new Produto(produto_id, produto_codigo);
+                    return new Produto(produto_id, produto_codigo, Integer.parseInt(produto_fator_de_saida));
                 }
             }
             br.close();
@@ -273,6 +293,16 @@ public class App {
             return false;
         }else if(codigo.contains(" ")){
             lancarMensagem("A332");
+            return false;
+        }
+        return true;
+    }
+    public static boolean validarFator(String fator_de_saida){
+        if(fator_de_saida == null || fator_de_saida == "" || fator_de_saida == "\n" || fator_de_saida.isEmpty()){
+            //lancarMensagem("A331");
+            return false;
+        }else if(fator_de_saida.contains(" ")){
+            //lancarMensagem("A332");
             return false;
         }
         return true;

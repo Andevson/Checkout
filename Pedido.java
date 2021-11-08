@@ -38,7 +38,13 @@ public class Pedido {
                 produtos_quantidade_atual[i] = produtos_quantidade[n];
                 i++;
             }else{
+                produtos_quantidade[n] -= produtos[n].getFator(); 
                 codigo = "vazio";
+                if(produtos_quantidade[n] > 0){
+                    produtos_atual[i] = produtos[n];
+                    produtos_quantidade_atual[i] = produtos_quantidade[n];
+                    i++;
+                }
             }
             n++;
         }

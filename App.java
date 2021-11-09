@@ -62,8 +62,8 @@ public class App {
                 quantidade = formatarEntrada(quantidade);
                 if(validarId(id)){
                     Produto produto = getProduto(id, "");
-                    if(validarFator(quantidade, String.valueOf(produto.getFator()))){
-                        if(produto != null){
+                    if(produto != null){
+                        if(validarFator(quantidade, String.valueOf(produto.getFator()))){
                             pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
                         }else{
                             id = "";
@@ -90,6 +90,8 @@ public class App {
             writer.append(produto.getCodigo());
             writer.append("\t");
             writer.append(produto.getId());
+            writer.append("\t");
+            writer.append(String.valueOf(produto.getFator()));
             writer.append("\n");
             writer.close();
         }catch(IOException e){

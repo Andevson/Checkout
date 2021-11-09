@@ -328,10 +328,15 @@ public class App {
     }
     public static boolean validarFator(String fator_de_saida, String fator_produto){
         if(validarFator(fator_de_saida) && validarFator(fator_produto)){
-            if(Integer.parseInt(fator_de_saida) == Integer.parseInt(fator_produto)){
-                return true;
+            if(Integer.parseInt(fator_de_saida) != 0){
+                if((Integer.parseInt(fator_de_saida) % Integer.parseInt(fator_produto)) == 0){
+                    return true;
+                }else{
+                    lancarMensagem("A346");
+                    return false;
+                }
             }else{
-                lancarMensagem("A346");
+                //lancarMensagem("A346");
                 return false;
             }
         }else{

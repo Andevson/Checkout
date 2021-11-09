@@ -23,9 +23,13 @@ public class Pedido {
         return produtos_quantidade;
     }
     public void acrescentarProduto(Produto produto, int produto_quantidade){
-        quantidade += 1;
-        produtos[quantidade] = produto;
-        produtos_quantidade[quantidade] = produto_quantidade;
+        if((produto_quantidade % produto.getFator()) == 0 && produto_quantidade > 0){
+            quantidade += 1;
+            produtos[quantidade] = produto;
+            produtos_quantidade[quantidade] = produto_quantidade;
+        }else{
+            //Erro
+        }
     }
     public void saidaProduto(String codigo){
         Produto[] produtos_atual = new Produto[100];

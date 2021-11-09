@@ -101,12 +101,13 @@ public class App {
     public static void novoProduto(String id){
         new InterfaceNovoProduto(id).setVisible(true);
     }
-    public static boolean cadastrarProduto(String id, String codigo){
+    public static boolean cadastrarProduto(String id, String codigo, String fator){
         String produto_id = formatarEntrada(id);
         String produto_codigo = formatarEntrada(codigo);
+        int produto_fator = Integer.parseInt(formatarEntrada(fator));
         try{
             if(validarId(produto_id) && validarCodigo(produto_codigo)){
-                gravarProduto(new Produto(produto_id, produto_codigo, 1));
+                gravarProduto(new Produto(produto_id, produto_codigo, produto_fator));
                 return true;
             }else{
                 lancarMensagem("A311");

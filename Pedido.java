@@ -22,6 +22,13 @@ public class Pedido {
     private int[] getProdutosQuantidade(){
         return produtos_quantidade;
     }
+    public int getQuantidadeAbsoluta(){
+        int qty = 0;
+        for(int n = 1; n < quantidade; n++){
+            qty += produtos_quantidade[n];
+        }
+        return qty;
+    }
     public void acrescentarProduto(Produto produto, int produto_quantidade){
         if((produto_quantidade % produto.getFator()) == 0 && produto_quantidade > 0){
             quantidade += 1;

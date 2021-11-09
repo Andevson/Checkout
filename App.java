@@ -328,7 +328,7 @@ public class App {
     }
     public static boolean validarFator(String fator_de_saida, String fator_produto){
         if(validarFator(fator_de_saida) && validarFator(fator_produto)){
-            if(Integer.parseInt(fator_de_saida) != 0){
+            if(Integer.parseInt(fator_de_saida) > 0){
                 if((Integer.parseInt(fator_de_saida) % Integer.parseInt(fator_produto)) == 0){
                     return true;
                 }else{
@@ -336,7 +336,7 @@ public class App {
                     return false;
                 }
             }else{
-                //lancarMensagem("A346");
+                lancarMensagem("A347");
                 return false;
             }
         }else{
@@ -414,6 +414,9 @@ public class App {
                 break;
             case "A346":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade tem que ser múltipla do fator do produto.").setVisible(true);
+                break;
+            case "A347":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode ser nula ou negativa.").setVisible(true);
                 break;
             default:
                 lancarMensagem("E111");

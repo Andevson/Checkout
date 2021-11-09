@@ -60,13 +60,15 @@ public class App {
                 }
                 id = formatarEntrada(id);
                 quantidade = formatarEntrada(quantidade);
-                if(validarId(id) && validarFator(quantidade)){
+                if(validarId(id)){
                     Produto produto = getProduto(id, "");
-                    if(produto != null){
-                        pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
-                    }else{
-                        id = "";
-                        limpar_pedido = true;
+                    if(validarFator(quantidade, String.valueOf(produto.getFator()))){
+                        if(produto != null){
+                            pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
+                        }else{
+                            id = "";
+                            limpar_pedido = true;
+                        }
                     }
                 }else{
                     limpar_pedido = true;
@@ -283,8 +285,6 @@ public class App {
         }
         if(id.length() > 0){
             novoProduto(id);
-        }else if(codigo.length() > 0){
-            novoProduto(codigo);
         }
         return null;
     }
@@ -318,13 +318,25 @@ public class App {
     }
     public static boolean validarFator(String fator_de_saida){
         if(fator_de_saida == null || fator_de_saida == "" || fator_de_saida == "\n" || fator_de_saida.isEmpty()){
-            //lancarMensagem("A331");
+            lancarMensagem("A344");
             return false;
         }else if(fator_de_saida.contains(" ")){
-            //lancarMensagem("A332");
+            lancarMensagem("A345");
             return false;
         }
         return true;
+    }
+    public static boolean validarFator(String fator_de_saida, String fator_produto){
+        if(validarFator(fator_de_saida) && validarFator(fator_produto)){
+            if(Integer.parseInt(fator_de_saida) == Integer.parseInt(fator_produto)){
+                return true;
+            }else{
+                lancarMensagem("A346");
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
     public static String formatarEntrada(String entrada){
         String entrada_valida = "";
@@ -388,6 +400,15 @@ public class App {
                 break;
             case "A343":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Nenhum produto inserido", "A entrada não possui produtos ou está faltando cabeçalho.").setVisible(true);
+                break;
+            case "A344":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade não inserida", "Nenhuma quantidade foi inserida.").setVisible(true);
+                break;
+            case "A345":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode conter espaços.").setVisible(true);
+                break;
+            case "A346":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade tem que ser múltipla do fator do produto.").setVisible(true);
                 break;
             default:
                 lancarMensagem("E111");

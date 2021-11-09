@@ -58,7 +58,7 @@ public class Pedido {
             for(int n = 0; n < quantidade; n++){
                 dados[n][0] = produtos[n + 1].getId();
                 dados[n][1] = produtos[n + 1].getCodigo();
-                dados[n][2] = String.valueOf(getProdutosQuantidade()[n + 1]);
+                dados[n][2] = String.valueOf(getProdutosQuantidade()[n + 1]/ getProdutos()[n + 1].getFator());
             }
             return new JTable(dados, cabecalho);
     }

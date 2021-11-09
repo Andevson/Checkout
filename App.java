@@ -73,6 +73,7 @@ public class App {
                 }
             }while(leitura.hasNextLine());
         }catch(NoSuchElementException e){
+            lancarMensagem("A343");
             leitura.close();
             if(limpar_pedido){pedido.limpar();}
             return pedido;
@@ -384,6 +385,9 @@ public class App {
                 break;
             case "A342":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "ID não pode conter espaços.").setVisible(true);
+                break;
+            case "A343":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Nenhum produto inserido", "A entrada não possui produtos ou está faltando cabeçalho.").setVisible(true);
                 break;
             default:
                 lancarMensagem("E111");

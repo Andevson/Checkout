@@ -23,29 +23,47 @@ public class App {
     }
     public static Pedido inserirProdutos(Pedido pedido, String entrada){
         boolean usar_cabecalho = Boolean.parseBoolean(getCfg()[0]);
+        Byte ordem_id = Byte.parseByte(getCfg()[1]);
+        Byte ordem_quantidade = Byte.parseByte(getCfg()[2]);
         boolean limpar_pedido = false;
-        String id = "";
-        String quantidade = "";
         Scanner leitura = new Scanner(entrada);
         try{
             if(usar_cabecalho){
                 leitura.nextLine();
             }
+            String linha;
             do{
-                String linha = leitura.nextLine();
-                id = formatarEntrada(linha);
-                quantidade = linha.substring(id.length() + 1);
-                if(validarId(id)){
+                String id = "";
+                String quantidade = "";
+                linha = leitura.nextLine();
+                int i = 0;
+                int n = 0;
+                Byte coluna = 1;
+                while(n < linha.length()){
+                    for(n = 0; n < linha.length(); n++){
+                        if(n == (linha.length() - 1)){
+                            if(coluna == ordem_id){
+                                id = linha.substring(i);
+                            }else if(coluna == ordem_quantidade){
+                                quantidade = linha.substring(i);
+                            }
+                        }else if(linha.charAt(n) == '\t'){
+                            if(coluna == ordem_id){
+                                id = linha.substring(i, n);
+                            }else if(coluna == ordem_quantidade){
+                                quantidade = linha.substring(i, n);
+                            }
+                            i = n + 1;
+                            coluna++;
+                        }
+                    }
+                }
+                id = formatarEntrada(id);
+                quantidade = formatarEntrada(quantidade);
+                if(validarId(id) && validarFator(quantidade)){
                     Produto produto = getProduto(id, "");
                     if(produto != null){
-                        if(quantidade.length() > 0){
-                            System.out.println("quantidade aceita:" + quantidade);
-                            pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
-                            
-                        }else{
-                            pedido.acrescentarProduto(produto, produto.getFator());
-                            System.out.println("quantidade invalida!\n");
-                        }
+                        pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
                     }else{
                         id = "";
                         limpar_pedido = true;
@@ -53,7 +71,7 @@ public class App {
                 }else{
                     limpar_pedido = true;
                 }
-            }while(id != "\n");
+            }while(leitura.hasNextLine());
         }catch(NoSuchElementException e){
             leitura.close();
             if(limpar_pedido){pedido.limpar();}

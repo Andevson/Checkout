@@ -222,6 +222,7 @@ public class App {
             return null;
         }
         if(!check_leitura[0] || !check_leitura[1] || !check_leitura[2]){
+            lancarMensagem("E235");
             resetCfg();
         }else{
             config[0] = "" + usar_cabecalho;
@@ -247,10 +248,16 @@ public class App {
         }
     }
     private static void resetCfg(){
-        boolean usar_cabecalho = true;
-        byte ordem_id = 1;
-        byte ordem_quantidade = 2;
-        setCfg(usar_cabecalho, ordem_id, ordem_quantidade);
+        try{
+            PrintWriter gravacao = new PrintWriter("config.cfg");
+            gravacao.println("USAR_CABECALHO=1");
+            gravacao.println("ORDEM_ID=1");
+            gravacao.println("ORDEM_QUANTIDADE=2");
+            gravacao.close();
+        }catch(FileNotFoundException e){
+            getConfiguracao();
+        }
+        lancarMensagem("A232");
     }
     public static Produto getProduto(String id, String codigo){
         String produto_id = "";
@@ -398,6 +405,9 @@ public class App {
                 break;
             case "E234":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível estabelecer uma conexão com as novas configurações.").setVisible(true);
+                break;
+            case "E235":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro carregar configurações", "As configurações são inválidas.").setVisible(true);
                 break;
             case "A311":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Os dados inseridos são inválidos.").setVisible(true);

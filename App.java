@@ -231,14 +231,19 @@ public class App {
         return config;
     }
     public static void setCfg(boolean usar_cabecalho, byte ordem_id, byte ordem_codigo){
-        try{
-            PrintWriter gravacao = new PrintWriter("config.cfg");
-            gravacao.println("USAR_CABECALHO=" + usar_cabecalho);
-            gravacao.println("ORDEM_ID=" + ordem_id);
-            gravacao.println("ORDEM_CODIGO=" + ordem_codigo);
-            gravacao.close();
-        }catch(FileNotFoundException e){
-            getConfiguracao();
+        if(ordem_id != ordem_codigo){
+            try{
+                PrintWriter gravacao = new PrintWriter("config.cfg");
+                gravacao.println("USAR_CABECALHO=" + usar_cabecalho);
+                gravacao.println("ORDEM_ID=" + ordem_id);
+                gravacao.println("ORDEM_CODIGO=" + ordem_codigo);
+                gravacao.close();
+            }catch(FileNotFoundException e){
+                getConfiguracao();
+            }
+            lancarMensagem("A351");
+        }else{
+            lancarMensagem("A352");
         }
     }
     private static void resetCfg(){
@@ -432,6 +437,12 @@ public class App {
                 break;
             case "A347":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode ser nula ou negativa.").setVisible(true);
+                break;
+            case "A351":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações salvas", "As configurações foram armazenadas.").setVisible(true);
+                break;
+            case "A352":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações inválidas", "A ordem do ID não pode ser a mesma da quantidade.").setVisible(true);
                 break;
             default:
                 lancarMensagem("E111");

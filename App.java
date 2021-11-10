@@ -160,20 +160,21 @@ public class App {
     public static void getConfiguracao(){
         try{
             FileInputStream file = new FileInputStream("config.cfg");
-            // Base de dados carregada
+            // Configurações carregadas
             file.close();
         }catch(IOException e){
-            // Base de dados não carregada
+            // Configurações não carregadas
+            lancarMensagem("E231");
             try{
                 File base_de_dados = new File("config.cfg");
                 base_de_dados.createNewFile();
                 if(base_de_dados.exists()){
-                    //lancarMensagem("A212");
+                    lancarMensagem("A232");
                 }else{
-                    //lancarMensagem("E213");
+                    lancarMensagem("E233");
                 }
             }catch(IOException e1){
-                //lancarMensagem("E214");
+                lancarMensagem("E234");
             }
         }
     }
@@ -215,7 +216,6 @@ public class App {
             }
             br.close();
         }catch(FileNotFoundException e){
-            //lancarMensagem("E211");
             getConfiguracao();
             return null;
         }catch(IOException e1){
@@ -238,7 +238,7 @@ public class App {
             gravacao.println("ORDEM_CODIGO=" + ordem_codigo);
             gravacao.close();
         }catch(FileNotFoundException e){
-
+            getConfiguracao();
         }
     }
     private static void resetCfg(){
@@ -381,6 +381,18 @@ public class App {
                 break;
             case "E221":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.").setVisible(true);
+                break;
+            case "E231":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro nas configurações", "Arquivo de configurações não encontrado.").setVisible(true);
+                break;
+            case "A232":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações criadas", "Um novo arquivo de configurações foi criado.").setVisible(true);
+                break;
+            case "E233":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível ler ou criar as configurações.").setVisible(true);
+                break;
+            case "E234":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível estabelecer uma conexão com as novas configurações.").setVisible(true);
                 break;
             case "A311":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Os dados inseridos são inválidos.").setVisible(true);

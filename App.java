@@ -181,9 +181,9 @@ public class App {
     public static String[] getCfg(){
         boolean usar_cabecalho = true;
         byte ordem_id = 1;
-        byte ordem_codigo = 2;
+        byte ordem_quantidade = 2;
         Boolean[] check_leitura = {false, false, false};
-        String[] config = {"" + usar_cabecalho, "" + ordem_id, "" + ordem_codigo};
+        String[] config = {"" + usar_cabecalho, "" + ordem_id, "" + ordem_quantidade};
         try{
             BufferedReader br = new BufferedReader(new FileReader("config.cfg"));
             String line;
@@ -202,8 +202,8 @@ public class App {
                                     ordem_id = Byte.parseByte(valor);
                                     check_leitura[1] = true;
                                     break;
-                                case "ORDEM_CODIGO":
-                                    ordem_codigo = Byte.parseByte(valor);
+                                case "ORDEM_QUANTIDADE":
+                                    ordem_quantidade = Byte.parseByte(valor);
                                     check_leitura[2] = true;
                                     break;
                                 default:
@@ -226,17 +226,17 @@ public class App {
         }else{
             config[0] = "" + usar_cabecalho;
             config[1] = "" + ordem_id;
-            config[2] = "" + ordem_codigo;
+            config[2] = "" + ordem_quantidade;
         }
         return config;
     }
-    public static void setCfg(boolean usar_cabecalho, byte ordem_id, byte ordem_codigo){
-        if(ordem_id != ordem_codigo){
+    public static void setCfg(boolean usar_cabecalho, byte ordem_id, byte ordem_quantidade){
+        if(ordem_id != ordem_quantidade){
             try{
                 PrintWriter gravacao = new PrintWriter("config.cfg");
                 gravacao.println("USAR_CABECALHO=" + usar_cabecalho);
                 gravacao.println("ORDEM_ID=" + ordem_id);
-                gravacao.println("ORDEM_CODIGO=" + ordem_codigo);
+                gravacao.println("ORDEM_QUANTIDADE=" + ordem_quantidade);
                 gravacao.close();
             }catch(FileNotFoundException e){
                 getConfiguracao();
@@ -249,8 +249,8 @@ public class App {
     private static void resetCfg(){
         boolean usar_cabecalho = true;
         byte ordem_id = 1;
-        byte ordem_codigo = 2;
-        setCfg(usar_cabecalho, ordem_id, ordem_codigo);
+        byte ordem_quantidade = 2;
+        setCfg(usar_cabecalho, ordem_id, ordem_quantidade);
     }
     public static Produto getProduto(String id, String codigo){
         String produto_id = "";

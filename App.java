@@ -79,6 +79,9 @@ public class App {
             leitura.close();
             if(limpar_pedido){pedido.limpar();}
             return pedido;
+        }catch(NullPointerException e1){
+            leitura.close();
+            return pedido;
         }
         if(limpar_pedido){pedido.limpar();}
         leitura.close();
@@ -251,7 +254,7 @@ public class App {
     private static void resetCfg(){
         try{
             PrintWriter gravacao = new PrintWriter("config.cfg");
-            gravacao.println("USAR_CABECALHO=1");
+            gravacao.println("USAR_CABECALHO=true");
             gravacao.println("ORDEM_ID=1");
             gravacao.println("ORDEM_QUANTIDADE=2");
             gravacao.close();

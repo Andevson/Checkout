@@ -217,6 +217,7 @@ public class App {
             br.close();
         }catch(FileNotFoundException e){
             getConfiguracao();
+            resetCfg();
             return null;
         }catch(IOException e1){
             return null;
@@ -257,7 +258,7 @@ public class App {
         }catch(FileNotFoundException e){
             getConfiguracao();
         }
-        lancarMensagem("A232");
+        lancarMensagem("A353");
     }
     public static Produto getProduto(String id, String codigo){
         String produto_id = "";
@@ -407,7 +408,7 @@ public class App {
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível estabelecer uma conexão com as novas configurações.").setVisible(true);
                 break;
             case "E235":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro carregar configurações", "As configurações são inválidas.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao carregar configurações", "As configurações são inválidas.").setVisible(true);
                 break;
             case "A311":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Os dados inseridos são inválidos.").setVisible(true);
@@ -453,6 +454,9 @@ public class App {
                 break;
             case "A352":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações inválidas", "A ordem do ID não pode ser a mesma da quantidade.").setVisible(true);
+                break;
+            case "A353":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações criadas", "Novas configurações foram criadas.").setVisible(true);
                 break;
             default:
                 lancarMensagem("E111");

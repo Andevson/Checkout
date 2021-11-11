@@ -176,6 +176,7 @@ public class App {
             }catch(IOException e1){
                 lancarMensagem("E234");
             }
+            resetCfg();
         }
     }
     public static String[] getCfg(){
@@ -217,7 +218,6 @@ public class App {
             br.close();
         }catch(FileNotFoundException e){
             getConfiguracao();
-            resetCfg();
             return null;
         }catch(IOException e1){
             return null;

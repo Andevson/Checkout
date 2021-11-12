@@ -41,7 +41,7 @@ public class InterfaceNovoPedido extends JFrame{
         btn_obter.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                p = App.inserirProdutos(p, txt_entrada.getText());
+                p = App.addProdutos(p, txt_entrada.getText());
                 JTable nova_tbl_produtos = p.getTabelaProdutos();
                 tbl_produtos.setModel(nova_tbl_produtos.getModel());
                 ((AbstractTableModel) tbl_produtos.getModel()).fireTableDataChanged();
@@ -51,7 +51,7 @@ public class InterfaceNovoPedido extends JFrame{
         btn_finalizar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.finalizarPedido(p);
+                App.abrirConferencia(p);
                 txt_entrada.setText("");
                 dispose();
             }

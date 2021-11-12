@@ -52,14 +52,14 @@ public class InterfacePedido extends JFrame{
                 topo.setBackground(new Color(222, 222, 222));
                 if(entrada.charAt(entrada.length() - 1) == '\n'){
                     int qty = p.getQuantidadeAbsoluta();
-                    p = App.saida(pedido, entrada);
+                    p = App.removerProdutos(pedido, entrada);
                     if(qty > p.getQuantidadeAbsoluta()){
                         topo.setBackground(new Color(0, 255, 0));
                     }else{
                         topo.setBackground(new Color(255, 0, 0));
                     }
                     if(p.getQuantidade() <= 0){
-                        App.lancarMensagem("A322");
+                        App.abrirMensagem("A322");
                         dispose();
                     }
                     atualizaTabela(p);

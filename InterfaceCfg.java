@@ -18,7 +18,7 @@ public class InterfaceCfg extends JFrame{
     private final JButton btn_cancelar= new JButton("Cancelar");
     private final JButton btn_salvar = new JButton("Salvar");
     private static void carregarCfg(){
-        String[] cfg = App.getCfg();
+        String[] cfg = App.getConfiguracoes();
         Boolean usar_cabecalho = Boolean.parseBoolean(cfg[0]);
         int ordem_id = Integer.parseInt(cfg[1]);
         int ordem_quantidade = Integer.parseInt(cfg[2]);
@@ -66,7 +66,7 @@ public class InterfaceCfg extends JFrame{
         btn_salvar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.setCfg(check_cabecalho.isSelected(), Byte.parseByte(spinner_ordem_id.getValue().toString()), Byte.parseByte(spinner_ordem_quantidade.getValue().toString()));
+                App.setConfiguracoes(check_cabecalho.isSelected(), Byte.parseByte(spinner_ordem_id.getValue().toString()), Byte.parseByte(spinner_ordem_quantidade.getValue().toString()));
             }
         });
     }

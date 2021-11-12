@@ -20,7 +20,7 @@ public class InterfaceApp extends JFrame{
             backgroundImage = ImageIO.read(new File("app_background.jpg"));
             lbl_background = new JLabel(new ImageIcon(backgroundImage));
         }catch(IOException e){
-            App.lancarMensagem("E221");
+            App.abrirMensagem("E221");
             return;
         }
     }
@@ -44,19 +44,19 @@ public class InterfaceApp extends JFrame{
         btn_novo_pedido.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.novoPedido();
+                App.abrirPedido();
             }
         });
         btn_novo_produto.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.novoProduto("");
+                App.abrirCadastroDeProduto("");
             }
         });
         btn_configuracoes.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.novoCfg();
+                App.abrirConfiguracoes();
             }
         });
     }

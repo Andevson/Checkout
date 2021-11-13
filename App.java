@@ -30,88 +30,91 @@ public class App {
     public static void abrirMensagem(String mensagem){
         switch(mensagem){
             case "D111":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar mensagem", "Mensagem não identificada.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao lançar mensagem", "Mensagem não identificada.");
                 break;
             case "E211":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na base de dados", "Base de dados não encontrada.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro na base de dados", "Base de dados não encontrada.");
                 break;
             case "A212":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Base de dados criada", "Uma nova base de dados foi criada.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Base de dados criada", "Uma nova base de dados foi criada.");
                 break;
             case "E213":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível ler ou criar a base de dados.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível ler ou criar a base de dados.");
                 break;
             case "E214":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar base de dados", "Não foi possível estabelecer uma conexão com a nova base de dados.");
                 break;
             case "E215":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao gravar produto", "Não foi possível armazenar dados no banco de dados.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao gravar produto", "Não foi possível armazenar dados no banco de dados.");
                 break;
             case "E221":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.");
                 break;
             case "E231":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro nas configurações", "Arquivo de configurações não encontrado.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro nas configurações", "Arquivo de configurações não encontrado.");
                 break;
             case "A232":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações criadas", "Um novo arquivo de configurações foi criado.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações criadas", "Um novo arquivo de configurações foi criado.");
                 break;
             case "E233":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível ler ou criar as configurações.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível ler ou criar as configurações.");
                 break;
             case "E234":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível estabelecer uma conexão com as novas configurações.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao criar configurações", "Não foi possível estabelecer uma conexão com as novas configurações.");
                 break;
             case "E235":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao carregar configurações", "As configurações são inválidas.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao carregar configurações", "As configurações são inválidas.");
+                break;
+            case "E241":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao carregar produto", "O produto carregado da base de dados é invalido.");
                 break;
             case "A311":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Os dados inseridos são inválidos.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Os dados inseridos são inválidos.");
                 break;
             case "A312":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "O código inserido é inválido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "O código inserido é inválido.");
                 break;
             case "A321":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Pedido vazio", "Não há nenhum produto no pedido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Pedido vazio", "Não há nenhum produto no pedido.");
                 break;
             case "A322":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido", "Todos os produtos tiveram saída.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido", "Todos os produtos tiveram saída.");
                 break;
             case "A331":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Código não inserido", "Nenhum código de barras foi inserido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Código não inserido", "Nenhum código de barras foi inserido.");
                 break;
             case "A332":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Código inválido", "Código de barras não pode conter espaços.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Código inválido", "Código de barras não pode conter espaços.");
                 break;
             case "A341":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "Nenhum ID foi inserido.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "Nenhum ID foi inserido.");
                 break;
             case "A342":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "ID não pode conter espaços.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "ID não pode conter espaços.");
                 break;
             case "A343":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Nenhum produto inserido", "A entrada não possui produtos ou está faltando cabeçalho.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Nenhum produto inserido", "A entrada não possui produtos ou está faltando cabeçalho.");
                 break;
             case "A344":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade não inserida", "Nenhuma quantidade foi inserida.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade não inserida", "Nenhuma quantidade foi inserida.");
                 break;
             case "A345":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode conter espaços.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode conter espaços.");
                 break;
             case "A346":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade tem que ser múltipla do fator do produto.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade tem que ser múltipla do fator do produto.");
                 break;
             case "A347":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode ser nula ou negativa.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade inválida", "Quantidade não pode ser nula ou negativa.");
                 break;
             case "A351":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações salvas", "As configurações foram armazenadas.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações salvas", "As configurações foram armazenadas.");
                 break;
             case "A352":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações inválidas", "A ordem do ID não pode ser a mesma da quantidade.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações inválidas", "A ordem do ID não pode ser a mesma da quantidade.");
                 break;
             case "A353":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações criadas", "Novas configurações foram criadas.").setVisible(true);
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Configurações criadas", "Novas configurações foram criadas.");
                 break;
             default:
                 abrirMensagem("E111");
@@ -283,6 +286,7 @@ public class App {
         return config;
     }
     public static Produto getProduto(String id, String codigo){
+        Produto produto;
         String produto_id = "";
         String produto_codigo = "";
         String produto_fator_de_saida = "";
@@ -307,10 +311,14 @@ public class App {
                     }
                 }
                 produto_fator_de_saida = line.substring(i, line.length());
-                if(validarId(produto_id) && validarCodigo(produto_codigo) && validarFator(produto_fator_de_saida) 
-                && (produto_codigo.equals(codigo) || produto_id.equals(id))){
-                    br.close();
-                    return new Produto(produto_id, produto_codigo, Integer.parseInt(produto_fator_de_saida));
+                if(produto_codigo.equals(codigo) || produto_id.equals(id)){
+                    produto = new Produto(produto_id, produto_codigo, Integer.parseInt(produto_fator_de_saida));
+                    if(validarProduto(produto)){
+                        br.close();
+                        return produto;
+                    }else{
+                        abrirMensagem("E241");
+                    }
                 }
             }
             br.close();
@@ -422,6 +430,14 @@ public class App {
         }
         return true;
     }
+    public static boolean validarFator(int fator_de_saida){
+        if(fator_de_saida > 0){
+            return true;
+        }else{
+            abrirMensagem("A347");
+            return false;
+        }
+    }
     public static boolean validarFator(String fator_de_saida, String fator_produto){
         if(validarFator(fator_de_saida) && validarFator(fator_produto)){
             if(Integer.parseInt(fator_de_saida) > 0){
@@ -433,6 +449,21 @@ public class App {
                 }
             }else{
                 abrirMensagem("A347");
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    public static boolean validarProduto(Produto produto){
+        if(validarId(produto.getId())){
+            if(validarCodigo(produto.getCodigo())){
+                if(validarFator(produto.getFator())){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
                 return false;
             }
         }else{

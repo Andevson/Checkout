@@ -94,7 +94,7 @@ public class InterfaceApp extends JFrame{
         menu_item_licenca.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                App.abrirLicenca();
             }
         });
         btn_novo_pedido.addActionListener(new ActionListener(){

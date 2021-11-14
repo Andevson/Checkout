@@ -31,6 +31,9 @@ public class App {
     public static void abrirConfiguracoes(){
         new InterfaceCfg().setVisible(true);
     }
+    public static void abrirLicenca(){
+        new InterfaceLicenca();
+    }
     public static void abrirMensagem(String mensagem){
         switch(mensagem){
             case "D111":
@@ -381,6 +384,22 @@ public class App {
             abrirCadastroDeProduto(id);
         }
         return null;
+    }
+    public static String getLicenca(){
+        String licenca = "";
+        String linha = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("licenca.html"));
+            while((linha = br.readLine()) != null){
+                licenca = licenca + linha;
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return licenca;
     }
     public static void setConfiguracoes(boolean usar_cabecalho, byte ordem_id, byte ordem_quantidade){
         if(ordem_id != ordem_quantidade){

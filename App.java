@@ -184,7 +184,6 @@ public class App {
                     }
                 }
             }
-            id = formatarEntrada(id);
             try{
                 validarId(id);
             }catch(StringVazia e){
@@ -199,7 +198,6 @@ public class App {
                 return pedido;
             }
             Produto produto = getProduto(id, "");
-            quantidade = formatarEntrada(quantidade);
             try{
                 validarFator(Integer.valueOf(quantidade));
                 validarFator(quantidade);
@@ -355,18 +353,20 @@ public class App {
                     }
                 }
                 produto_fator_de_saida = line.substring(i, line.length());
-                br.close();
                 if(produto_codigo.equals(codigo) || produto_id.equals(id)){
                     produto = new Produto(produto_id, produto_codigo, Integer.parseInt(produto_fator_de_saida));
                     try{
                         validarProduto(produto);
+                        br.close();
                         return produto;
                     }catch(ProdutoInvalido e){
                         abrirMensagem("E241");
+                        br.close();
                         return null;
                     }
                 }
             }
+            br.close();
         }catch(FileNotFoundException e){
             abrirMensagem("E211");
             carregarBaseDeDados();
@@ -404,9 +404,9 @@ public class App {
         tela.setIconImage(icone.getImage());
     }
     public static boolean cadastrarProduto(String id, String codigo, String fator){
-        String produto_id = formatarEntrada(id);
-        String produto_codigo = formatarEntrada(codigo);
-        int produto_fator = Integer.parseInt(formatarEntrada(fator));
+        String produto_id = id;
+        String produto_codigo = codigo;
+        int produto_fator = Integer.parseInt(fator);
         Produto produto = null;
         try{
             try{
@@ -450,7 +450,7 @@ public class App {
     } 
     public static Pedido removerProdutos(Pedido pedido, String entrada){
         Pedido p = pedido;
-        String entrada_formatada = formatarEntrada(entrada);
+        String entrada_formatada = entrada;
         try{
             validarCodigo(entrada_formatada);
         }catch(StringVazia e){
@@ -512,19 +512,6 @@ public class App {
         }catch(IntInvalido e){
             throw new ProdutoInvalido();
         }
-    }
-    public static String formatarEntrada(String entrada){
-        String entrada_valida = "";
-        for(int n = 0; n < entrada.length(); n++){
-            if(entrada.charAt(n) == '\n' || entrada.charAt(n) == '\t'){
-                entrada_valida = entrada.substring(0, n);
-                break;
-            }
-            if(n == (entrada.length() - 1)){
-                entrada_valida = entrada.substring(0, n + 1);
-            }
-        }
-        return entrada_valida;
     }
     public static void main(String[] args){
         carregarConfiguracoes();

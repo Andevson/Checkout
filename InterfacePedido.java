@@ -52,7 +52,7 @@ public class InterfacePedido extends JFrame{
                 topo.setBackground(new Color(222, 222, 222));
                 if(entrada.charAt(entrada.length() - 1) == '\n'){
                     int qty = p.getQuantidadeAbsoluta();
-                    p = App.removerProdutos(pedido, entrada);
+                    p = App.removerProdutos(pedido, entrada.substring(0, entrada.length() - 1));
                     if(qty > p.getQuantidadeAbsoluta()){
                         topo.setBackground(new Color(0, 255, 0));
                     }else{

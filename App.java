@@ -148,91 +148,88 @@ public class App {
         Byte ordem_id = Byte.parseByte(getConfiguracoes()[1]);
         Byte ordem_quantidade = Byte.parseByte(getConfiguracoes()[2]);
         Scanner leitura = new Scanner(entrada);
-        try{
-            if(usar_cabecalho){
+        if(usar_cabecalho){
+            try{
                 leitura.nextLine();
+            }catch(NoSuchElementException e){
+                abrirMensagem("A343");
+                leitura.close();
+                return pedido;
             }
-            String linha;
-            do{
-                String id = "";
-                String quantidade = "";
-                linha = leitura.nextLine();
-                int i = 0;
-                int n = 0;
-                Byte coluna = 1;
-                while(n < linha.length()){
-                    for(n = 0; n < linha.length(); n++){
-                        if(n == (linha.length() - 1)){
-                            if(coluna == ordem_id){
-                                id = linha.substring(i);
-                            }else if(coluna == ordem_quantidade){
-                                quantidade = linha.substring(i);
-                            }
-                        }else if(linha.charAt(n) == '\t'){
-                            if(coluna == ordem_id){
-                                id = linha.substring(i, n);
-                            }else if(coluna == ordem_quantidade){
-                                quantidade = linha.substring(i, n);
-                            }
-                            i = n + 1;
-                            coluna++;
+        }
+        String linha;
+        while(leitura.hasNextLine()){
+            String id = "";
+            String quantidade = "";
+            linha = leitura.nextLine();
+            int i = 0;
+            int n = 0;
+            Byte coluna = 1;
+            while(n < linha.length()){
+                for(n = 0; n < linha.length(); n++){
+                    if(n == (linha.length() - 1)){
+                        if(coluna == ordem_id){
+                            id = linha.substring(i);
+                        }else if(coluna == ordem_quantidade){
+                            quantidade = linha.substring(i);
                         }
+                    }else if(linha.charAt(n) == '\t'){
+                        if(coluna == ordem_id){
+                            id = linha.substring(i, n);
+                        }else if(coluna == ordem_quantidade){
+                            quantidade = linha.substring(i, n);
+                        }
+                        i = n + 1;
+                        coluna++;
                     }
                 }
-                id = formatarEntrada(id);
+            }
+            id = formatarEntrada(id);
+            try{
+                validarId(id);
+            }catch(StringVazia e){
+                abrirMensagem("A341");
+                pedido.limpar();
+                leitura.close();
+                return pedido;
+            }catch(StringInvalida e){
+                abrirMensagem("A342");
+                pedido.limpar();
+                leitura.close();
+                return pedido;
+            }
+            Produto produto = getProduto(id, "");
+            quantidade = formatarEntrada(quantidade);
+            try{
+                validarFator(Integer.valueOf(quantidade));
+                validarFator(quantidade);
+            }catch(IntInvalido e){
+                abrirMensagem("A347");
+                pedido.limpar();
+                leitura.close();
+                return pedido;
+            }catch(StringVazia e){
+                abrirMensagem("A344");
+                pedido.limpar();
+                leitura.close();
+                return pedido;
+            }catch(StringInvalida e){
+                abrirMensagem("A345");
+                pedido.limpar();
+                leitura.close();
+                return pedido;
+            }
+            if(produto != null){
                 try{
-                    validarId(id);
-                }catch(StringVazia e){
-                    abrirMensagem("A341");
-                    pedido.limpar();
-                    leitura.close();
-                    return pedido;
-                }catch(StringInvalida e){
-                    abrirMensagem("A342");
-                    pedido.limpar();
-                    leitura.close();
-                    return pedido;
-                }
-                Produto produto = getProduto(id, "");
-                quantidade = formatarEntrada(quantidade);
-                try{
-                    validarFator(Integer.valueOf(quantidade));
-                    validarFator(quantidade);
+                    validarFator(Integer.valueOf(quantidade), produto.getFator());
                 }catch(IntInvalido e){
-                    abrirMensagem("A347");
-                    pedido.limpar();
-                    leitura.close();
-                    return pedido;
-                }catch(StringVazia e){
-                    abrirMensagem("A344");
-                    pedido.limpar();
-                    leitura.close();
-                    return pedido;
-                }catch(StringInvalida e){
-                    abrirMensagem("A345");
+                    abrirMensagem("A346");
                     pedido.limpar();
                     leitura.close();
                     return pedido;
                 }
-                if(produto != null){
-                    try{
-                        validarFator(Integer.valueOf(quantidade), produto.getFator());
-                    }catch(IntInvalido e){
-                        abrirMensagem("A346");
-                        pedido.limpar();
-                        leitura.close();
-                        return pedido;
-                    }
-                    pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
-                }
-            }while(leitura.hasNextLine());
-        }catch(NoSuchElementException e){
-            abrirMensagem("A343");
-            leitura.close();
-            return pedido;
-        }catch(NullPointerException e){
-            leitura.close();
-            return pedido;
+                pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
+            }
         }
         leitura.close();
         return pedido;

@@ -96,6 +96,9 @@ public class App {
             case "A322":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Checkout concluido", "Todos os produtos tiveram saída.");
                 break;
+            case "F323":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível acrescentar o produto", "A quantidade de entrada e/ou do produto são inválidas.");
+                break;
             case "A331":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Código não inserido", "Nenhum código de barras foi inserido.");
                 break;

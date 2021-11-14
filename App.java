@@ -407,46 +407,50 @@ public class App {
         tela.setIconImage(icone.getImage());
     }
     public static boolean cadastrarProduto(String id, String codigo, String fator){
+        try{
+            validarId(id);
+        }catch(StringVazia e){
+            abrirMensagem("A311");
+            return false;
+        }catch(StringInvalida e){
+            abrirMensagem("A312");
+            return false;
+        }
         String produto_id = id;
+        try{
+            validarCodigo(codigo);
+        }catch(StringVazia e){
+            abrirMensagem("A313");
+            return false;
+        }catch(StringInvalida e){
+            abrirMensagem("A314");
+            return false;
+        }
         String produto_codigo = codigo;
+        try{
+            validarCodigo(fator);
+        }catch(StringVazia e){
+            abrirMensagem("A315");
+            return false;
+        }catch(StringInvalida e){
+            abrirMensagem("A316");
+            return false;
+        }
         int produto_fator = Integer.parseInt(fator);
         Produto produto = null;
+        produto = new Produto(produto_id, produto_codigo, produto_fator);
         try{
-            try{
-                validarId(produto_id);
-            }catch(StringVazia e){
-                abrirMensagem("A311");
-                return false;
-            }catch(StringInvalida e){
-                abrirMensagem("A312");
-                return false;
-            }
-            try{
-                validarCodigo(produto_codigo);
-            }catch(StringVazia e){
-                abrirMensagem("A313");
-                return false;
-            }catch(StringInvalida e){
-                abrirMensagem("A314");
-                return false;
-            }
-            produto = new Produto(produto_id, produto_codigo, produto_fator);
-            try{
-                BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
-                writer.append(produto.getCodigo());
-                writer.append("\t");
-                writer.append(produto.getId());
-                writer.append("\t");
-                writer.append(String.valueOf(produto.getFator()));
-                writer.append("\n");
-                writer.close();
-            }catch(IOException e){
-                abrirMensagem("E215");
-                carregarBaseDeDados();
-                return false;
-            }
-        }catch(StringIndexOutOfBoundsException e){
-            abrirMensagem("A312");
+            BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
+            writer.append(produto.getCodigo());
+            writer.append("\t");
+            writer.append(produto.getId());
+            writer.append("\t");
+            writer.append(String.valueOf(produto.getFator()));
+            writer.append("\n");
+            writer.close();
+        }catch(IOException e){
+            abrirMensagem("E215");
+            carregarBaseDeDados();
             return false;
         }
         return true;

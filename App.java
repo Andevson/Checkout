@@ -12,8 +12,8 @@ import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-
 import checkout_error.IntInvalido;
+import checkout_error.ProdutoInvalido;
 import checkout_error.StringInvalida;
 import checkout_error.StringVazia;
 
@@ -358,17 +358,18 @@ public class App {
                     }
                 }
                 produto_fator_de_saida = line.substring(i, line.length());
+                br.close();
                 if(produto_codigo.equals(codigo) || produto_id.equals(id)){
                     produto = new Produto(produto_id, produto_codigo, Integer.parseInt(produto_fator_de_saida));
-                    if(validarProduto(produto)){
-                        br.close();
+                    try{
+                        validarProduto(produto);
                         return produto;
-                    }else{
+                    }catch(ProdutoInvalido e){
                         abrirMensagem("E241");
+                        return null;
                     }
                 }
             }
-            br.close();
         }catch(FileNotFoundException e){
             abrirMensagem("E211");
             carregarBaseDeDados();
@@ -502,19 +503,18 @@ public class App {
             throw new IntInvalido();
         }
     }
-    public static boolean validarProduto(Produto produto){
+    public static void validarProduto(Produto produto) throws ProdutoInvalido{
         try{
             validarId(produto.getId());
             validarCodigo(produto.getCodigo());
             validarFator(produto.getFator());
         }catch(StringVazia e){
-            return false;
+            throw new ProdutoInvalido();
         }catch(StringInvalida e){
-            return false;
+            throw new ProdutoInvalido();
         }catch(IntInvalido e){
-            return false;
+            throw new ProdutoInvalido();
         }
-        return true;
     }
     public static String formatarEntrada(String entrada){
         String entrada_valida = "";

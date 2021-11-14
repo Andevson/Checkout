@@ -100,6 +100,9 @@ public class App {
             case "A332":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Código inválido", "Código de barras não pode conter espaços.");
                 break;
+            case "F333":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Saída não efetuada", "O pedido atual está vazio.");
+                break;
             case "A341":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "ID não inserido", "Nenhum ID foi inserido.");
                 break;
@@ -394,24 +397,28 @@ public class App {
                 abrirMensagem("A312");
                 return false;
             }
-            if(validarCodigo(produto_codigo)){
-                produto = new Produto(produto_id, produto_codigo, produto_fator);
-                try{
-                    BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
-                    writer.append(produto.getCodigo());
-                    writer.append("\t");
-                    writer.append(produto.getId());
-                    writer.append("\t");
-                    writer.append(String.valueOf(produto.getFator()));
-                    writer.append("\n");
-                    writer.close();
-                }catch(IOException e){
-                    abrirMensagem("E215");
-                    carregarBaseDeDados();
-                    return false;
-                }
-            }else{
-                abrirMensagem("A311");
+            try{
+                validarCodigo(produto_codigo);
+            }catch(StringVazia e){
+                abrirMensagem("A313");
+                return false;
+            }catch(StringInvalida e){
+                abrirMensagem("A314");
+                return false;
+            }
+            produto = new Produto(produto_id, produto_codigo, produto_fator);
+            try{
+                BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
+                writer.append(produto.getCodigo());
+                writer.append("\t");
+                writer.append(produto.getId());
+                writer.append("\t");
+                writer.append(String.valueOf(produto.getFator()));
+                writer.append("\n");
+                writer.close();
+            }catch(IOException e){
+                abrirMensagem("E215");
+                carregarBaseDeDados();
                 return false;
             }
         }catch(StringIndexOutOfBoundsException e){
@@ -423,10 +430,19 @@ public class App {
     public static Pedido removerProdutos(Pedido pedido, String entrada){
         Pedido p = pedido;
         String entrada_formatada = formatarEntrada(entrada);
-        if(validarCodigo(entrada_formatada)){
-            if(p.getQuantidade() > 0){
-                p.saidaProduto(entrada_formatada);
-            }
+        try{
+            validarCodigo(entrada_formatada);
+        }catch(StringVazia e){
+            abrirMensagem("A331");
+            return p;
+        }catch(StringInvalida e){
+            abrirMensagem("A332");
+            return p;
+        }
+        if(p.getQuantidade() > 0){
+            p.saidaProduto(entrada_formatada);
+        }else{
+            abrirMensagem("F333");
         }
         return p;
     }
@@ -437,15 +453,12 @@ public class App {
             throw new StringInvalida();
         }
     }
-    public static boolean validarCodigo(String codigo){
+    public static void validarCodigo(String codigo) throws StringVazia, StringInvalida{
         if(codigo == null || codigo == "" || codigo == "\n" || codigo.isEmpty()){
-            abrirMensagem("A331");
-            return false;
+            throw new StringVazia();
         }else if(codigo.contains(" ")){
-            abrirMensagem("A332");
-            return false;
+            throw new StringInvalida();
         }
-        return true;
     }
     public static boolean validarFator(String fator_de_saida){
         if(fator_de_saida == null || fator_de_saida == "" || fator_de_saida == "\n" || fator_de_saida.isEmpty()){
@@ -485,12 +498,9 @@ public class App {
     public static boolean validarProduto(Produto produto){
         try{
             validarId(produto.getId());
-            if(validarCodigo(produto.getCodigo())){
-                if(validarFator(produto.getFator())){
-                    return true;
-                }else{
-                    return false;
-                }
+            validarCodigo(produto.getCodigo());
+            if(validarFator(produto.getFator())){
+                return true;
             }else{
                 return false;
             }

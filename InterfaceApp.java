@@ -54,6 +54,17 @@ public class InterfaceApp extends JFrame{
         painel.add(topo, BorderLayout.NORTH);
         painel.add(centro, BorderLayout.CENTER);
         painel.add(lbl_background);
+        topo.setBackground(Color.BLUE);
+        btn_novo_pedido.setBackground(Color.GREEN);
+        btn_novo_pedido.setOpaque(true);
+        btn_novo_pedido.setForeground(Color.BLACK);
+        btn_novo_pedido.setFocusPainted(false);
+        btn_novo_pedido.setBorderPainted(true);
+        btn_novo_produto.setBackground(Color.YELLOW);
+        btn_novo_produto.setOpaque(true);
+        btn_novo_produto.setForeground(Color.BLACK);
+        btn_novo_produto.setFocusPainted(false);
+        btn_novo_produto.setBorderPainted(true);
         topo.add(btn_novo_pedido);
         topo.add(btn_novo_produto);
         menu_item_novo_pedido.addActionListener(new ActionListener(){

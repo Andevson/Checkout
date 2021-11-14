@@ -35,7 +35,7 @@ public class Pedido {
             produtos[quantidade] = produto;
             produtos_quantidade[quantidade] = produto_quantidade;
         }else{
-            //Erro
+            App.abrirMensagem("F323");
         }
     }
     public void saidaProduto(String codigo){

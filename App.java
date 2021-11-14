@@ -498,7 +498,7 @@ public class App {
         }
     }
     public static void validarFator(int fator_de_saida, int fator_produto) throws IntInvalido{
-        if(fator_de_saida != fator_produto){
+        if((fator_de_saida % fator_produto) != 0){
             throw new IntInvalido();
         }
     }

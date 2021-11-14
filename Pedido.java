@@ -24,7 +24,7 @@ public class Pedido {
     }
     public int getQuantidadeAbsoluta(){
         int qty = 0;
-        for(int n = 1; n < quantidade; n++){
+        for(int n = 1; n <= quantidade; n++){
             qty += produtos_quantidade[n];
         }
         return qty;

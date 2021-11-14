@@ -12,6 +12,8 @@ import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import checkout_error.StringInvalida;
+import checkout_error.StringVazia;
 
 public class App {
     public static void abrirCadastroDeProduto(String id){
@@ -69,10 +71,22 @@ public class App {
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao carregar produto", "O produto carregado da base de dados é invalido.");
                 break;
             case "A311":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Os dados inseridos são inválidos.");
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Nenhum ID foi inserido.");
                 break;
             case "A312":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "O código inserido é inválido.");
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "ID não pode conter espaços.");
+                break;
+            case "A313":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Nenhum código foi inserido.");
+                break;
+            case "A314":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Código não pode conter espaços.");
+                break;
+            case "A315":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Nenhum fator foi inserido.");
+                break;
+            case "A316":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Não foi possível cadastrar o produto", "Fator não pode conter espaços.");
                 break;
             case "A321":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Pedido vazio", "Não há nenhum produto no pedido.");
@@ -163,26 +177,33 @@ public class App {
                 }
                 id = formatarEntrada(id);
                 quantidade = formatarEntrada(quantidade);
-                if(validarId(id)){
-                    Produto produto = getProduto(id, "");
-                    if(produto != null){
-                        if(validarFator(quantidade, String.valueOf(produto.getFator()))){
-                            pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
-                        }else{
-                            id = "";
-                            limpar_pedido = true;
-                        }
+                validarId(id);
+                Produto produto = getProduto(id, "");
+                if(produto != null){
+                    if(validarFator(quantidade, String.valueOf(produto.getFator()))){
+                        pedido.acrescentarProduto(produto, Integer.parseInt(quantidade));
+                    }else{
+                        id = "";
+                        limpar_pedido = true;
                     }
-                }else{
-                    limpar_pedido = true;
                 }
             }while(leitura.hasNextLine());
+        }catch(StringVazia e){
+            abrirMensagem("A341");
+            pedido.limpar();
+            leitura.close();
+            return pedido;
+        }catch(StringInvalida e){
+            abrirMensagem("A342");
+            pedido.limpar();
+            leitura.close();
+            return pedido;
         }catch(NoSuchElementException e){
             abrirMensagem("A343");
             leitura.close();
             if(limpar_pedido){pedido.limpar();}
             return pedido;
-        }catch(NullPointerException e1){
+        }catch(NullPointerException e){
             leitura.close();
             return pedido;
         }
@@ -364,7 +385,16 @@ public class App {
         int produto_fator = Integer.parseInt(formatarEntrada(fator));
         Produto produto = null;
         try{
-            if(validarId(produto_id) && validarCodigo(produto_codigo)){
+            try{
+                validarId(produto_id);
+            }catch(StringVazia e){
+                abrirMensagem("A311");
+                return false;
+            }catch(StringInvalida e){
+                abrirMensagem("A312");
+                return false;
+            }
+            if(validarCodigo(produto_codigo)){
                 produto = new Produto(produto_id, produto_codigo, produto_fator);
                 try{
                     BufferedWriter writer = new BufferedWriter(new FileWriter("data.txt", true));
@@ -400,15 +430,12 @@ public class App {
         }
         return p;
     }
-    public static boolean validarId(String id){
+    public static void validarId(String id) throws StringVazia, StringInvalida{
         if(id == null || id == "" || id == "\n" || id.isEmpty()){
-            abrirMensagem("A341");
-            return false;
+            throw new StringVazia();
         }else if(id.contains(" ")){
-            abrirMensagem("A342");
-            return false;
+            throw new StringInvalida();
         }
-        return true;
     }
     public static boolean validarCodigo(String codigo){
         if(codigo == null || codigo == "" || codigo == "\n" || codigo.isEmpty()){
@@ -456,7 +483,8 @@ public class App {
         }
     }
     public static boolean validarProduto(Produto produto){
-        if(validarId(produto.getId())){
+        try{
+            validarId(produto.getId());
             if(validarCodigo(produto.getCodigo())){
                 if(validarFator(produto.getFator())){
                     return true;
@@ -466,7 +494,9 @@ public class App {
             }else{
                 return false;
             }
-        }else{
+        }catch(StringVazia e){
+            return false;
+        }catch(StringInvalida e){
             return false;
         }
     }

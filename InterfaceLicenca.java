@@ -12,7 +12,7 @@ public class InterfaceLicenca extends JDialog{
     private final JLabel txt_licenca = new JLabel("");
     private final JLabel txt_info = new JLabel("<html><head></head><body><span>github.com/andevson/checkout</span></body></html>");
     private final JButton btn_ok = new JButton("Ok");
-    InterfaceLicenca(){
+    InterfaceLicenca(String html_licenca){
         setVisible(true);
         setTitle("Licença");
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -32,7 +32,7 @@ public class InterfaceLicenca extends JDialog{
         add(painel);
         painel.add(centro, BorderLayout.CENTER);
         painel.add(sul, BorderLayout.SOUTH);
-        txt_licenca.setText(App.getLicenca());
+        txt_licenca.setText(html_licenca);
         licenca.add(txt_licenca);
         info.add(txt_info);
         centro.add(centro_scroll);

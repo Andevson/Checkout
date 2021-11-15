@@ -43,6 +43,7 @@ public class InterfaceNovoProduto extends JFrame{
         txt_fator.setPreferredSize(new Dimension(50, 25));
         txt_fator.setMaximumSize(new Dimension(50, 25));
         txt_id.setText(id);
+        App.setButtonColor(btn_cadastrar, 96, 255, 96);
         addWindowFocusListener(new WindowAdapter() {
             public void windowGainedFocus(WindowEvent e) {
                 if(id.length() > 0){

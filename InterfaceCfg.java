@@ -57,6 +57,8 @@ public class InterfaceCfg extends JFrame{
         spinner_ordem_id.setPreferredSize(new Dimension(40, 20));
         spinner_ordem_quantidade.setPreferredSize(new Dimension(40, 20));
         carregarCfg();
+        App.setButtonColor(btn_cancelar, 128, 128, 255);
+        App.setButtonColor(btn_salvar, 96, 255, 96);
         btn_cancelar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

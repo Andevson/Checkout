@@ -26,6 +26,7 @@ public class InterfaceMensagem extends JDialog{
         txt_mensagem.setText(mensagem);
         centro.add(txt_mensagem);
         sul.add(btn_ok);
+        App.setButtonColor(btn_ok, 128, 128, 255);
         btn_ok.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

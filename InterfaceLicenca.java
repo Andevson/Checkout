@@ -22,6 +22,7 @@ public class InterfaceLicenca extends JDialog{
         setBounds(50, 50, 400, 450);
         painel.setLayout(new BorderLayout());
         centro.setLayout(new FlowLayout());
+        centro_scroll.getVerticalScrollBar().setUnitIncrement(6);
         centro.setPreferredSize(new Dimension(385, 430));
         licenca.setPreferredSize(new Dimension(365, 450));
         txt_licenca.setPreferredSize(new Dimension(365, 450));
@@ -37,6 +38,7 @@ public class InterfaceLicenca extends JDialog{
         centro.add(centro_scroll);
         centro.add(info);
         sul.add(btn_ok);
+        App.setButtonColor(btn_ok, 128, 128, 255);
         btn_ok.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {

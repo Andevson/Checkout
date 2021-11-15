@@ -10,10 +10,9 @@ public class InterfaceMensagem extends JDialog{
     private final JLabel txt_mensagem = new JLabel("");
     private final JButton btn_ok = new JButton("Ok");
     InterfaceMensagem(String nome, String mensagem){
-        setVisible(true);
+        setModalityType(ModalityType.APPLICATION_MODAL);
         setTitle(nome);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        setModal(true);
         setResizable(false);
         App.setIcone(this);
         setBounds(500, 100, 250, 100);
@@ -33,5 +32,6 @@ public class InterfaceMensagem extends JDialog{
                 dispose();
             }
         });
+        setVisible(true);
     }
 }

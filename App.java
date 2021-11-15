@@ -36,7 +36,11 @@ public class App {
         new InterfaceCfg().setVisible(true);
     }
     public static void abrirLicenca(){
-        new InterfaceLicenca();
+        try{
+            new InterfaceLicenca(getLicenca());
+        }catch(FileNotFoundException e){
+            return;
+        }
     }
     public static void abrirMensagem(String mensagem){
         switch(mensagem){
@@ -60,6 +64,9 @@ public class App {
                 break;
             case "E221":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Imagem de fundo não encontrada.");
+                break;
+            case "E222":
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro ao abrir arquivo", "Licença não encontrada.");
                 break;
             case "E231":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Erro nas configurações", "Arquivo de configurações não encontrado.");
@@ -389,7 +396,7 @@ public class App {
         }
         return null;
     }
-    public static String getLicenca(){
+    public static String getLicenca() throws FileNotFoundException{
         String licenca = "";
         String linha = "";
         try {
@@ -399,7 +406,8 @@ public class App {
             }
             br.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            abrirMensagem("E222");
+            throw e;
         }catch (IOException e) {
             e.printStackTrace();
         }

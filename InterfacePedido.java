@@ -44,19 +44,28 @@ public class InterfacePedido extends JFrame{
         centro_scroll.setPreferredSize(new Dimension(200, 500));
         this.p = pedido;
         atualizaTabela(p);
+        topo.setBackground(new Color(0, 0, 255));
+        lbl_entrada.setForeground(new Color(255, 255, 255));
+        lbl_qty_restante.setForeground(new Color(255, 255, 255));
         lbl_qty_restante.setText("Restante: " + p.getQuantidade());
         txt_entrada.getDocument().addDocumentListener(new DocumentListener(){
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String entrada = txt_entrada.getText();
-                topo.setBackground(new Color(222, 222, 222));
+                topo.setBackground(new Color(0, 0, 255));
+                lbl_entrada.setForeground(new Color(255, 255, 255));
+                lbl_qty_restante.setForeground(new Color(255, 255, 255));
                 if(entrada.charAt(entrada.length() - 1) == '\n'){
                     int qty = p.getQuantidadeAbsoluta();
                     p = App.removerProdutos(pedido, entrada.substring(0, entrada.length() - 1));
                     if(qty > p.getQuantidadeAbsoluta()){
                         topo.setBackground(new Color(0, 255, 0));
+                        lbl_entrada.setForeground(new Color(0, 0, 0));
+                        lbl_qty_restante.setForeground(new Color(0, 0, 0));
                     }else{
                         topo.setBackground(new Color(255, 0, 0));
+                        lbl_entrada.setForeground(new Color(255, 255, 255));
+                        lbl_qty_restante.setForeground(new Color(255, 255, 255));
                     }
                     if(p.getQuantidade() <= 0){
                         App.abrirMensagem("A322");

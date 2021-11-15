@@ -38,6 +38,7 @@ public class InterfaceNovoPedido extends JFrame{
         txt_entrada.setMaximumSize(new Dimension(100, 20));
         centro_scroll.setPreferredSize(new Dimension(200, 500));
         this.p = pedido;
+        topo.setBackground(Color.BLUE);
         App.setButtonColor(btn_obter, 96, 255, 96);
         App.setButtonColor(btn_finalizar, 255, 255, 96);
         btn_obter.addActionListener(new ActionListener(){

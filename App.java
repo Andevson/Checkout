@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,8 +11,11 @@ import java.io.PrintWriter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import checkout_error.IntInvalido;
 import checkout_error.ProdutoInvalido;
 import checkout_error.StringInvalida;
@@ -400,6 +404,59 @@ public class App {
             e.printStackTrace();
         }
         return licenca;
+    }
+    public static void setButtonColor(JButton btn, int r, int g, int b){
+        class Cor {
+            static int  mudarTon(int cor, int valor){
+                cor = cor + valor;
+                if(cor > 255){
+                    cor = 255;
+                }else if(cor < 0){
+                    cor = 0;
+                }
+                return cor;
+            }
+            static Color mudarCor(int r, int g, int b, int v){
+                return new Color(mudarTon(r, v), mudarTon(g, v), mudarTon(b, v));
+            }
+        }
+        int v = Math.max(Math.max(r, g), b);
+        btn.setBackground(new Color(r, g, b));
+        btn.setOpaque(true);
+        Color btn_cor = new Color(r, g, b);
+        Color btn_cor_rollover;
+        Color btn_cor_pressed;
+        if(v >= 128){
+            btn_cor_rollover = Cor.mudarCor(r, g, b, 32);
+            btn_cor_pressed = Cor.mudarCor(r, g, b, 64);
+            btn.setForeground(Color.BLACK);
+        }else{
+            btn_cor_rollover = Cor.mudarCor(r, g, b, -32);
+            btn_cor_pressed = Cor.mudarCor(r, g, b, -64);
+            btn.setForeground(Color.WHITE);
+        }
+        btn.setFocusPainted(false);
+        btn.setBorderPainted(false);
+        btn.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (btn.getModel().isPressed()) {
+                    if(v >= 128){
+                        btn.setBackground(btn_cor_pressed);
+                    }else{
+                        btn.setBackground(btn_cor_pressed);
+                    }
+                } else if (btn.getModel().isRollover()) {
+                    if(v >= 128){
+                        btn.setBackground(btn_cor_rollover);
+                    }else{
+                        btn.setBackground(btn_cor_rollover);
+                    }
+                } else {
+                    btn.setBackground(btn_cor);
+                }
+            }
+        });
     }
     public static void setConfiguracoes(boolean usar_cabecalho, byte ordem_id, byte ordem_quantidade){
         if(ordem_id != ordem_quantidade){

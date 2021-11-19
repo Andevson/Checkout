@@ -415,7 +415,7 @@ public class App {
     }
     public static void setButtonColor(JButton btn, int r, int g, int b){
         class Cor {
-            static int  mudarTon(int cor, int valor){
+            int  mudarTon(int cor, int valor){
                 cor = cor + valor;
                 if(cor > 255){
                     cor = 255;
@@ -424,7 +424,7 @@ public class App {
                 }
                 return cor;
             }
-            static Color mudarCor(int r, int g, int b, int v){
+            Color mudarCor(int r, int g, int b, int v){
                 return new Color(mudarTon(r, v), mudarTon(g, v), mudarTon(b, v));
             }
         }
@@ -435,12 +435,12 @@ public class App {
         Color btn_cor_rollover;
         Color btn_cor_pressed;
         if(v >= 128){
-            btn_cor_rollover = Cor.mudarCor(r, g, b, 32);
-            btn_cor_pressed = Cor.mudarCor(r, g, b, 64);
+            btn_cor_rollover = new Cor().mudarCor(r, g, b, 32);
+            btn_cor_pressed = new Cor().mudarCor(r, g, b, 64);
             btn.setForeground(Color.BLACK);
         }else{
-            btn_cor_rollover = Cor.mudarCor(r, g, b, -32);
-            btn_cor_pressed = Cor.mudarCor(r, g, b, -64);
+            btn_cor_rollover = new Cor().mudarCor(r, g, b, -32);
+            btn_cor_pressed = new Cor().mudarCor(r, g, b, -64);
             btn.setForeground(Color.WHITE);
         }
         btn.setFocusPainted(false);

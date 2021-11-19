@@ -7,10 +7,13 @@ public class InterfaceCfg extends JFrame{
     JPanel bottom = new JPanel();
     JPanel centro = new JPanel();
     JPanel centro_cabecalho = new JPanel();
+    JPanel centro_rodape = new JPanel();
     JPanel centro_ordem_id = new JPanel();
     JPanel centro_ordem_quantidade = new JPanel();
     private final JLabel lbl_cabecalho = new JLabel("Usar cabeçalho: ");
     private final static JCheckBox check_cabecalho = new JCheckBox();
+    private final JLabel lbl_rodape = new JLabel("Usar rodapé: ");
+    private final static JCheckBox check_rodape = new JCheckBox();
     private final JLabel lbl_ordem_id = new JLabel("Ordem do ID: ");
     private final static JSpinner spinner_ordem_id = new JSpinner();
     private final JLabel lbl_ordem_quantidade = new JLabel("Ordem da quantidade: ");
@@ -20,9 +23,11 @@ public class InterfaceCfg extends JFrame{
     private static void carregarCfg(){
         String[] cfg = App.getConfiguracoes();
         Boolean usar_cabecalho = Boolean.parseBoolean(cfg[0]);
-        int ordem_id = Integer.parseInt(cfg[1]);
-        int ordem_quantidade = Integer.parseInt(cfg[2]);
+        Boolean usar_rodape = Boolean.parseBoolean(cfg[1]);
+        int ordem_id = Integer.parseInt(cfg[2]);
+        int ordem_quantidade = Integer.parseInt(cfg[3]);
         check_cabecalho.setSelected(usar_cabecalho);
+        check_rodape.setSelected(usar_rodape);
         SpinnerNumberModel model_ordem_id = new SpinnerNumberModel(ordem_id, 1, 255, 1);
         SpinnerNumberModel model_ordem_quantidade = new SpinnerNumberModel(ordem_quantidade, 1, 255, 1);
         spinner_ordem_id.setModel(model_ordem_id);
@@ -38,16 +43,20 @@ public class InterfaceCfg extends JFrame{
         bottom.setLayout(new FlowLayout());
         centro.setLayout(new GridLayout(3, 1));
         centro_cabecalho.setLayout(new FlowLayout());
+        centro_rodape.setLayout(new FlowLayout());
         centro_ordem_id.setLayout(new FlowLayout());
         centro_ordem_quantidade.setLayout(new FlowLayout());
         add(painel);
         painel.add(bottom, BorderLayout.SOUTH);
         painel.add(centro, BorderLayout.CENTER);
         centro.add(centro_cabecalho);
+        centro.add(centro_rodape);
         centro.add(centro_ordem_id);
         centro.add(centro_ordem_quantidade);
         centro_cabecalho.add(lbl_cabecalho);
         centro_cabecalho.add(check_cabecalho);
+        centro_rodape.add(lbl_rodape);
+        centro_rodape.add(check_rodape);
         centro_ordem_id.add(lbl_ordem_id);
         centro_ordem_id.add(spinner_ordem_id);
         centro_ordem_quantidade.add(lbl_ordem_quantidade);
@@ -68,7 +77,7 @@ public class InterfaceCfg extends JFrame{
         btn_salvar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                App.setConfiguracoes(check_cabecalho.isSelected(), Byte.parseByte(spinner_ordem_id.getValue().toString()), Byte.parseByte(spinner_ordem_quantidade.getValue().toString()));
+                App.setConfiguracoes(check_cabecalho.isSelected(), check_rodape.isSelected(), Byte.parseByte(spinner_ordem_id.getValue().toString()), Byte.parseByte(spinner_ordem_quantidade.getValue().toString()));
             }
         });
     }

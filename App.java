@@ -288,15 +288,16 @@ public class App {
             }catch(IOException e1){
                 abrirMensagem("E234");
             }
-            setConfiguracoes(true, (byte)1, (byte)2);
+            setConfiguracoes(true, false, (byte)1, (byte)2);
         }
     }
     public static String[] getConfiguracoes(){
         boolean usar_cabecalho = true;
+        boolean usar_rodape = false;
         byte ordem_id = 1;
         byte ordem_quantidade = 2;
-        Boolean[] check_leitura = {false, false, false};
-        String[] config = {"" + usar_cabecalho, "" + ordem_id, "" + ordem_quantidade};
+        Boolean[] check_leitura = {false, false, false, false};
+        String[] config = {"" + usar_cabecalho, "" + usar_cabecalho, "" + ordem_id, "" + ordem_quantidade};
         try{
             BufferedReader br = new BufferedReader(new FileReader("config.cfg"));
             String line;
@@ -311,13 +312,17 @@ public class App {
                                     usar_cabecalho = Boolean.parseBoolean(valor);
                                     check_leitura[0] = true;
                                     break;
+                                case "USAR_RODAPE":
+                                    usar_rodape = Boolean.parseBoolean(valor);
+                                    check_leitura[1] = true;
+                                    break;
                                 case "ORDEM_ID":
                                     ordem_id = Byte.parseByte(valor);
-                                    check_leitura[1] = true;
+                                    check_leitura[2] = true;
                                     break;
                                 case "ORDEM_QUANTIDADE":
                                     ordem_quantidade = Byte.parseByte(valor);
-                                    check_leitura[2] = true;
+                                    check_leitura[3] = true;
                                     break;
                                 default:
                                     break;
@@ -334,13 +339,14 @@ public class App {
         }catch(IOException e1){
             return null;
         }
-        if(!check_leitura[0] || !check_leitura[1] || !check_leitura[2]){
+        if(!check_leitura[0] || !check_leitura[1] || !check_leitura[2] || !check_leitura[3]){
             abrirMensagem("E235");
-            setConfiguracoes(true, (byte)1, (byte)2);
+            setConfiguracoes(true, false, (byte)1, (byte)2);
         }else{
             config[0] = "" + usar_cabecalho;
-            config[1] = "" + ordem_id;
-            config[2] = "" + ordem_quantidade;
+            config[1] = "" + usar_rodape;
+            config[2] = "" + ordem_id;
+            config[3] = "" + ordem_quantidade;
         }
         return config;
     }
@@ -466,11 +472,12 @@ public class App {
             }
         });
     }
-    public static void setConfiguracoes(boolean usar_cabecalho, byte ordem_id, byte ordem_quantidade){
+    public static void setConfiguracoes(boolean usar_cabecalho, Boolean usar_rodape, byte ordem_id, byte ordem_quantidade){
         if(ordem_id != ordem_quantidade){
             try{
                 PrintWriter gravacao = new PrintWriter("config.cfg");
                 gravacao.println("USAR_CABECALHO=" + usar_cabecalho);
+                gravacao.println("USAR_RODAPE=" + usar_rodape);
                 gravacao.println("ORDEM_ID=" + ordem_id);
                 gravacao.println("ORDEM_QUANTIDADE=" + ordem_quantidade);
                 gravacao.close();

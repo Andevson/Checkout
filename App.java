@@ -162,8 +162,9 @@ public class App {
     }
     public static Pedido addProdutos(Pedido pedido, String entrada){
         boolean usar_cabecalho = Boolean.parseBoolean(getConfiguracoes()[0]);
-        Byte ordem_id = Byte.parseByte(getConfiguracoes()[1]);
-        Byte ordem_quantidade = Byte.parseByte(getConfiguracoes()[2]);
+        boolean usar_rodape = Boolean.parseBoolean(getConfiguracoes()[1]);
+        Byte ordem_id = Byte.parseByte(getConfiguracoes()[2]);
+        Byte ordem_quantidade = Byte.parseByte(getConfiguracoes()[3]);
         Scanner leitura = new Scanner(entrada);
         if(usar_cabecalho){
             try{
@@ -179,6 +180,9 @@ public class App {
             String id = "";
             String quantidade = "";
             linha = leitura.nextLine();
+            if(!leitura.hasNextLine() && usar_rodape){
+                break;
+            }
             int i = 0;
             int n = 0;
             Byte coluna = 1;

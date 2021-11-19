@@ -41,7 +41,7 @@ public class InterfaceCfg extends JFrame{
         App.setIcone(this);
         painel.setLayout(new BorderLayout());
         bottom.setLayout(new FlowLayout());
-        centro.setLayout(new GridLayout(3, 1));
+        centro.setLayout(new GridLayout(4, 1));
         centro_cabecalho.setLayout(new FlowLayout());
         centro_rodape.setLayout(new FlowLayout());
         centro_ordem_id.setLayout(new FlowLayout());

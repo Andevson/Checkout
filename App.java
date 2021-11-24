@@ -129,7 +129,7 @@ public class App {
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "ID inválido", "ID não pode conter espaços.");
                 break;
             case "A343":
-                new InterfaceMensagem("(" + mensagem + ")" + " " + "Nenhum produto inserido", "A entrada não possui produtos ou está faltando cabeçalho.");
+                new InterfaceMensagem("(" + mensagem + ")" + " " + "Nenhum produto inserido", "A entrada não possui produtos ou os produtos foram lidos como cabeçalho ou rodapé.");
                 break;
             case "A344":
                 new InterfaceMensagem("(" + mensagem + ")" + " " + "Quantidade não inserida", "Nenhuma quantidade foi inserida.");
@@ -251,6 +251,7 @@ public class App {
             }
         }
         leitura.close();
+        if(pedido.getQuantidade() <= 0){abrirMensagem("A343");}
         return pedido;
     }
     public static void carregarBaseDeDados(){

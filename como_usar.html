@@ -1,0 +1,103 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>Como usar</h1>
+        <br>
+        <h2>Sobre o software</h2>
+        <p>Checkout &#233; um software de confer&#234;ncia de mercadoria, que recebe como entrada um pedido em formato de tabela, e que pode ser utilizado com um leitor de c&#243;digo de barras.</p>
+        <p>Os pedidos s&#227;o copiados de qualquer tabela que esteja em fomato de texto, como no <strong>Excel</strong>, por exemplo.</p>
+        <br>
+        <h2>Passo a passo</h2>
+        <ol>
+            <li>
+                <h3>Configura&#231;&#245;es iniciais</h3>
+                <ol>
+                    <li>
+                        <p>Atrav&#233;s da barra de menu superior, selecione 'Op&#231;&#245;es' e em seguida 'Configura&#231;&#245;es'.</p>
+                        <p>Ser&#225; aberta a tela 'Configura&#231;&#245;es', que permitir&#225; definir par&#226;metros necess&#225;rios para identificar corretamente os produtos de um pedido.</p>
+                    </li>
+                    <li>
+                        <p>As op&#231;&#227;o 'Usar cabe&#231;alho' e 'Usar rodap&#233;' s&#227;o &#250;teis para trabalhar com diferentes fontes de dados, contendo ou n&#227;o cabe&#231;alho e/ou rodap&#233;.</p>
+                        <p>Caso a tabela importada possuia cabe&#231;alho, &#233; necess&#225;rio marcar a op&#231;&#227;o 'Usar cabe&#231;alho', ou o software far&#225; a leitura do cabe&#231;alho como se fosse um produto. O que ocasionar&#225; um erro.</p>
+                        <p>Caso a tabela importada possuia rodap&#233;, &#233; necess&#225;rio marcar a op&#231;&#227;o 'Usar rodap&#233;', ou o software far&#225; a leitura do rodap&#233; como se fosse um produto. O que ocasionar&#225; um erro.</p>
+                        <p><strong>Aten&#231;&#227;o: n&#227;o marque as op&#231;&#245;es caso n&#227;o seja necess&#225;rio, pois o uso indevido dessas op&#231;&#245;es pode fazer com que o alguns produtos n&#227;o sejam lidos.</strong></p>
+                    </li>
+                    <li>
+                        <p>Os campos 'Ordem ID' e 'Ordem quantidade' s&#227;o &#250;teis para trabalhar com diferentes fontes de dados, podendo reconhecer em quais colunas da tabela os atributos dos produtos est&#227;o inseridos.</p>
+                        <p>Atribua ao campo 'Ordem do ID', a posi&#231;&#227;o em que o 'ID' do produto se encontra na tabela. Caso o campo informado n&#227;o seja a posi&#231;&#227;o adequada, o software far&#225; a leitura da coluna como se fosse o 'ID' do produto. O que ocasionar&#225; um erro.</p>
+                        <p>Atribua ao campo 'Ordem da quantidade', a posi&#231;&#227;o em que a quantidade do produto se encontra na tabela. Caso o campo informado n&#227;o seja a posi&#231;&#227;o adequada, o software far&#225; a leitura da coluna como se fosse a quantidade do produto. O que ocasionar&#225; um erro.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>Cadastre um produto</h3>
+                <ol>
+                    <li>
+                        <p>Abra a tela de 'Cadastro de produtos', clicando no bot&#227;o 'Cadastro de produtos'.</p>
+                    </li>
+                    <li>
+                        <p>Insira um 'ID' para o produto, no campo 'ID'.</p>
+                        <p>Um 'ID' &#233; um c&#243;digo &#250;nico dado a cada produto, usado para que o produto possa ser encontrado no sistema.</p>
+                    </li>
+                    <li>
+                        <p>Insira ou escaneie o 'C&#243;digo de barras' do produto, no campo 'C&#243;digo'.</p>
+                        <p>Esse ser&#225; o c&#243;digo de barras escaneado durante o processo de confer&#234;ncia, para confirmar a confer&#234;ncia do produto.</p>
+                    </li>
+                    <li>
+                        <p>Insira 'Fator de quantidade' do produto, no campo 'Fator'.</p>
+                        <p>O 'Fator de quantidade' &#233; a quantidade de produtos que deve constar no pedido que corresponder&#225; a uma &#250;nica unidade conferida.</p>
+                        <p>Por exemplo: se o produto que est&#225; sendo conferido &#233; uma caixa com 6 pares de chinelos e no pedido est&#225; descrito a venda individual de cada um dos chinelos, o 'Fator de sa&#237;da' deve ser 6, para que voc&#234; escaneie a caixa com 6 produtos ao inv&#233;s de escanear um por um.</p>
+                    </li>
+                    <li>
+                        <p>Clique em 'Cadastrar'.</p>
+                        <p>Se tudo estiver certo, uma mensagem aparecer&#225; na tela informando que o produto foi cadastrado.</p>
+                    </li>
+                    <li>
+                        <p>Repita o processo para cadastrar quantos produtos quiser.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>Insira um pedido</h3>
+                <ol>
+                    <li>
+                        <p>Abra a tela de 'Novo pedido', clicando no bot&#227;o 'Novo pedido'.</p>
+                    </li>
+                    <li>
+                        <p>Insira a tabela contendo do pedido, contendo os produtos e a quantidade de cada produto.</p>
+                        <p>Cada produto deve estar em uma linha da tabela, devendo ser informado na 'Tela de configura&#231;&#245;es' a exist&#234;ncia ou n&#227;o de cabe&#231;alho e/ou rodap&#233;.</p>
+                        <p>Cabe&#231;alho e rodap&#233; s&#227;o ignorados pela confer&#234;ncia, j&#225; que n&#227;o cont&#234;m produtos em si.</p>
+                        <p>Cada linha contendo produto deve possuir uma coluna contendo o 'ID' do produto previamente cadastrado, e uma coluna contendo a quantidade, que deve ser m&#250;ltipla do 'Fator do produto'.</p>
+                    </li>
+                    <li>
+                        <p>Clique em 'Obter produtos'.</p>
+                        <p>Os produtos do pedido poder&#227;o ser visualizado em uma tebela na mesma tela.</p>
+                        <p>Ap&#243;s aparecerem os produtos do pedido corretamente, clique em 'Finalizar Pedido', para passar para a etapa de confer&#234;ncia.</p>
+                    </li>
+                    <li>
+                        <p>Se tudo estiver certo, ser&#225; aberta a tela 'Pedido', onde ser&#225; realizada a confer&#234;ncia dos produtos.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <h3>Fa&#231;a a confer&#234;ncia dos produtos</h3>
+                <ol>
+                    <li>
+                        <p>Ap&#243;s inserir um pedido na tela 'Novo pedido', ser&#225; aberta a tela de confer&#234;ncia de produtos.</p>
+                    </li>
+                    <li>
+                        <p>Insira ou escaneie o c&#243;digo de barras no campo 'Entre com c&#243;digo de barras'.</p>
+                        <p>Se o c&#243;digo de barras for v&#225;lido para o pedido em quest&#227;o, a tela mudar&#225; para a cor verde, caso o c&#243;digo de barras n&#227;o for v&#225;lido, a tela mudar&#225; para a cor vermelho.</p>
+                        <p>Tamb&#233;m &#233; poss&#237;vel acompanhar em uma tabela na mesma tela, os produtos que ainda restam ser conferidosm, al&#233;m de ser exibido a quantidade restante de produtos no canto superior direito da tela.</p>
+                        <p><strong>Aten&#231;&#227;o: um produto s&#243; &#233; conferido se a tela ficar verde e o pedido diminuir o produto em uma quantidade.</strong></p>
+                    </li>
+                    <li>
+                        <p>Ao realizar a confer&#234;ncia de todos os produtos do pedido, uma mensagem ser&#225; exibida informando que a confer&#234;ncia foi realizada com sucesso.</p>
+                        <p>Caso ainda restem produtos no pedido para serem conferidos, significa que a confer&#234;ncia n&#227;o foi realizada corretamente.</p>
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </body>
+</html>

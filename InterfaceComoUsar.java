@@ -23,8 +23,8 @@ public class InterfaceComoUsar extends JDialog{
         sul.setLayout(new FlowLayout());
         centro_scroll.getVerticalScrollBar().setUnitIncrement(6);
         centro.setPreferredSize(new Dimension(385, 370));
-        como_usar.setPreferredSize(new Dimension(365, 1700));
-        txt_como_usar.setPreferredSize(new Dimension(365, 1700));
+        como_usar.setPreferredSize(new Dimension(365, 2450));
+        txt_como_usar.setPreferredSize(new Dimension(365, 2450));
         centro_scroll.setPreferredSize(new Dimension(385, 370));
         add(painel);
         painel.add(centro, BorderLayout.CENTER);

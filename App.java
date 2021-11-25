@@ -25,6 +25,13 @@ public class App {
     public static void abrirCadastroDeProduto(String id){
         new InterfaceNovoProduto(id).setVisible(true);
     }
+    public static void abrirComoUsar(){
+        try{
+            new InterfaceComoUsar(getComoUsar());
+        }catch(FileNotFoundException e){
+            return;
+        }
+    }
     public static void abrirConferencia(Pedido pedido){
         if(pedido.getQuantidade() > 0){
             new InterfacePedido(pedido).setVisible(true);
@@ -273,6 +280,23 @@ public class App {
                 abrirMensagem("E214");
             }
         }
+    }
+    public static String getComoUsar() throws FileNotFoundException{
+        String como_usar = "";
+        String linha = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("como_usar.html"));
+            while((linha = br.readLine()) != null){
+                como_usar = como_usar + linha;
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            abrirMensagem("E223");
+            throw e;
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return como_usar;
     }
     public static void carregarConfiguracoes(){
         try{

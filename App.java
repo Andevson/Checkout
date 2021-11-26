@@ -167,6 +167,13 @@ public class App {
         Pedido pedido = new Pedido();
         new InterfaceNovoPedido(pedido).setVisible(true);
     }
+    public static void abrirResolucaoProblemas(){
+        try{
+            new InterfaceResolucaoDeProblemas(getResolucaoProblemas());
+        }catch(FileNotFoundException e){
+            return;
+        }
+    }
     public static Pedido addProdutos(Pedido pedido, String entrada){
         boolean usar_cabecalho = Boolean.parseBoolean(getConfiguracoes()[0]);
         boolean usar_rodape = Boolean.parseBoolean(getConfiguracoes()[1]);
@@ -447,6 +454,23 @@ public class App {
             e.printStackTrace();
         }
         return licenca;
+    }
+    public static String getResolucaoProblemas() throws FileNotFoundException{
+        String resolucao_problemas = "";
+        String linha = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("resolucao_problemas.html"));
+            while((linha = br.readLine()) != null){
+                resolucao_problemas = resolucao_problemas + linha;
+            }
+            br.close();
+        } catch (FileNotFoundException e) {
+            abrirMensagem("E224");
+            throw e;
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resolucao_problemas;
     }
     public static void setButtonColor(JButton btn, int r, int g, int b){
         class Cor {

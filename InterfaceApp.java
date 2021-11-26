@@ -18,6 +18,7 @@ public class InterfaceApp extends JFrame{
     private final JMenuItem menu_item_configuracoes = new JMenuItem("Configurações");
     private final JMenu menu_sobre = new JMenu("Sobre");
     private final JMenuItem menu_item_como_usar = new JMenuItem("Como usar");
+    private final JMenuItem menu_item_resolucao_problemas = new JMenuItem("Resolução de Problemas");
     private final JMenuItem menu_item_licenca = new JMenuItem("Licença");
     private final JButton btn_novo_pedido = new JButton("Novo pedido");
     private final JButton btn_novo_produto = new JButton("Cadastrar produto");
@@ -44,6 +45,7 @@ public class InterfaceApp extends JFrame{
         menu_checkout.add(menu_item_sair);
         menu_opcoes.add(menu_item_configuracoes);
         menu_sobre.add(menu_item_como_usar);
+        menu_sobre.add(menu_item_resolucao_problemas);
         menu_sobre.add(menu_item_licenca);
         menu.add(menu_checkout);
         menu.add(menu_opcoes);
@@ -89,6 +91,12 @@ public class InterfaceApp extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 App.abrirComoUsar();
+            }
+        });
+        menu_item_resolucao_problemas.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                App.abrirResolucaoProblemas();
             }
         });
         menu_item_licenca.addActionListener(new ActionListener(){

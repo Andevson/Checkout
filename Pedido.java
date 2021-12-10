@@ -1,9 +1,11 @@
 import javax.swing.JTable;
 
 public class Pedido {
+    private String numero;
     private Produto[] produtos;
     private int[] produtos_quantidade;
     private int quantidade;
+    private String codigo_cliente;
     Pedido(){
         produtos = new Produto[100];
         produtos_quantidade = new int[100];
@@ -12,6 +14,12 @@ public class Pedido {
     Pedido(Produto[] produtos, int quantidade){
         this.produtos = produtos;
         this.quantidade = quantidade;
+    }
+    public String getNumero(){
+        return numero;
+    }
+    public String getCodigoCliente(){
+        return codigo_cliente;
     }
     public Produto[] getProdutos(){
         return produtos;
@@ -37,6 +45,12 @@ public class Pedido {
         }else{
             App.abrirMensagem("F323");
         }
+    }
+    public void setNumero(String numero){
+        this.numero = numero;
+    }
+    public void setCodigoCliente(String codigo_cliente){
+        this.codigo_cliente = codigo_cliente;
     }
     public void saidaProduto(String codigo){
         Produto[] produtos_atual = new Produto[100];
@@ -75,5 +89,6 @@ public class Pedido {
     }
     public void limpar(){
         quantidade = 0;
+        codigo_cliente = null;
     }
 }

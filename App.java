@@ -8,12 +8,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import checkout_error.IntInvalido;
@@ -164,8 +166,9 @@ public class App {
         }
     }
     public static void abrirPedido(){
-        Pedido pedido = new Pedido();
-        new InterfaceNovoPedido(pedido).setVisible(true);
+        List<PedidoORM> pedidos_list = getPedidos();
+        JTable pedidos = getTabelaPedidos(pedidos_list);
+        new InterfaceNovoPedido(pedidos).setVisible(true);
     }
     public static void abrirResolucaoProblemas(){
         try{
@@ -265,6 +268,39 @@ public class App {
             }
         }
         leitura.close();
+        if(pedido.getQuantidade() <= 0){abrirMensagem("A343");}
+        return pedido;
+    }
+    public static Pedido addProdutos(Pedido pedido, String id, int quantidade){
+        try{
+            validarId(id);
+        }catch(StringVazia e){
+            abrirMensagem("A341");
+            pedido.limpar();
+            return pedido;
+        }catch(StringInvalida e){
+            abrirMensagem("A342");
+            pedido.limpar();
+            return pedido;
+        }
+        Produto produto = getProduto(id, "");
+        try{
+            validarFator(quantidade);
+        }catch(IntInvalido e){
+            abrirMensagem("A347");
+            pedido.limpar();
+            return pedido;
+        }
+        if(produto != null){
+            try{
+                validarFator(quantidade, produto.getFator());
+            }catch(IntInvalido e){
+                abrirMensagem("A346");
+                pedido.limpar();
+                return pedido;
+            }
+            pedido.acrescentarProduto(produto, quantidade);
+        }
         if(pedido.getQuantidade() <= 0){abrirMensagem("A343");}
         return pedido;
     }
@@ -386,11 +422,33 @@ public class App {
         }
         return config;
     }
+    public static Pedido getPedido(JTable pedidos, String numero){
+        List<ProdutoORM> produtosORM;
+        Pedido p = new Pedido();
+        for (int count = 0; count < pedidos.getModel().getRowCount(); count++){
+            if(pedidos.getModel().getValueAt(count, 0).toString().equals(numero)){
+                produtosORM = Conexao.obterProdutos(numero);
+                produtosORM.forEach(produtoORM -> {
+                    String cod = produtoORM.getCodigoProduto();
+                    Produto prod = getProduto(cod, "");
+                    if(prod != null){
+                        p.acrescentarProduto(prod, produtoORM.getQuantidade());
+                    }
+                });
+                break;
+            }
+        }
+        return p;
+    }
+    public static List<PedidoORM> getPedidos(){
+        List<PedidoORM> pedidosORM = Conexao.obterPedidos();
+        return pedidosORM;
+    }
     public static Produto getProduto(String id, String codigo){
         Produto produto;
         String produto_id = "";
         String produto_codigo = "";
-        String produto_fator_de_saida = "";
+        int produto_fator_de_saida;
         try{
             BufferedReader br = new BufferedReader(new FileReader("data.txt"));
             String line;
@@ -411,9 +469,12 @@ public class App {
                         break;
                     }
                 }
-                produto_fator_de_saida = line.substring(i, line.length());
                 if(produto_codigo.equals(codigo) || produto_id.equals(id)){
-                    produto = new Produto(produto_id, produto_codigo, Integer.parseInt(produto_fator_de_saida));
+                    produto_fator_de_saida = Conexao.obterFator(produto_id);
+                    if(produto_fator_de_saida == 0){
+                        produto_fator_de_saida = 1;
+                    }
+                    produto = new Produto(produto_id, produto_codigo, produto_fator_de_saida);
                     try{
                         validarProduto(produto);
                         br.close();
@@ -471,6 +532,18 @@ public class App {
             e.printStackTrace();
         }
         return resolucao_problemas;
+    }
+    public static JTable getTabelaPedidos(List<PedidoORM> pedidos){
+        int quantidade = 0;
+        quantidade = pedidos.size();
+        Object[][] dados = new String[quantidade][3];
+        String[] cabecalho = {"Pedido", "Cod. Cliente", "Quantidade"};
+        for(int n = 0; n < quantidade; n++){
+            dados[n][0] = pedidos.get(n).getNumeroPedido();
+            dados[n][1] = pedidos.get(n).getCodigoCliente();
+            dados[n][2] = String.valueOf(pedidos.get(n).getQuantidade());
+        }
+        return new JTable(dados, cabecalho);
     }
     public static void setButtonColor(JButton btn, int r, int g, int b){
         class Cor {

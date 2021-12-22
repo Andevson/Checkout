@@ -12,7 +12,7 @@ public class InterfaceNovoPedido extends JFrame{
     private final JTextArea txt_entrada = new JTextArea("");
     private final JButton btn_obter = new JButton("Obter produtos");
     private Object[][] dados = {{"", "", ""}};
-    private String[] header = {"Pedido", "Cod. Cliente", "Quantidade"};
+    private String[] header = {"Pedido", "Quantidade", "Código de barras"};
     private JTable tbl_produtos = new JTable(dados, header);
     InterfaceNovoPedido(JTable pedidos){
         super("Novo pedido");

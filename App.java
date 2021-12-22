@@ -422,12 +422,12 @@ public class App {
         }
         return config;
     }
-    public static Pedido getPedido(JTable pedidos, String numero){
+    public static Pedido getPedido(JTable pedidos, String codigo_barras){
         List<ProdutoORM> produtosORM;
         Pedido p = new Pedido();
         for (int count = 0; count < pedidos.getModel().getRowCount(); count++){
-            if(pedidos.getModel().getValueAt(count, 0).toString().equals(numero)){
-                produtosORM = Conexao.obterProdutos(numero);
+            if(pedidos.getModel().getValueAt(count, 2).toString().equals(codigo_barras)){
+                produtosORM = Conexao.obterProdutos(codigo_barras);
                 produtosORM.forEach(produtoORM -> {
                     String cod = produtoORM.getCodigoProduto();
                     Produto prod = getProduto(cod, "");
@@ -537,11 +537,11 @@ public class App {
         int quantidade = 0;
         quantidade = pedidos.size();
         Object[][] dados = new String[quantidade][3];
-        String[] cabecalho = {"Pedido", "Cod. Cliente", "Quantidade"};
+        String[] cabecalho = {"Pedido", "Quantidade", "Código de barras"};
         for(int n = 0; n < quantidade; n++){
             dados[n][0] = pedidos.get(n).getNumeroPedido();
-            dados[n][1] = pedidos.get(n).getCodigoCliente();
-            dados[n][2] = String.valueOf(pedidos.get(n).getQuantidade());
+            dados[n][1] = String.valueOf(pedidos.get(n).getQuantidade());
+            dados[n][2] = pedidos.get(n).getCodigoBarras();
         }
         return new JTable(dados, cabecalho);
     }
